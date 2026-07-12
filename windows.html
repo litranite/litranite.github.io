@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Install Litranite on Windows — Guide</title>
+<meta name="description" content="Step-by-step guide to installing Litranite on Windows, including getting past the SmartScreen warning.">
+<meta name="theme-color" content="#f4ece0">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Litranite">
+<meta property="og:title" content="Install Litranite on Windows">
+<meta property="og:description" content="A clear, step-by-step guide to installing Litranite on Windows.">
+<meta property="og:image" content="assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="assets/og-image.png">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script>(function(){try{var t=localStorage.getItem('litranite-theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="nav">
+  <a class="logo" href="index.html#top">
+    <img class="logo-mark lm-light" src="assets/logo.png" alt="" width="28" height="28">
+    <img class="logo-mark lm-dark" src="assets/logo-on-dark.png" alt="" width="28" height="28">
+    <span class="logo-word">Litranite</span>
+  </a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="index.html#features">Features</a>
+    <a href="index.html#story">Story</a>
+    <a href="index.html#download">Download</a>
+  </nav>
+  <div class="nav-right">
+    <button class="theme-toggle" type="button" aria-label="Switch between day and night reading" title="Day / night">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.3 6.3 0 0 0 10.5 10.5Z"/></svg>
+    </button>
+    <a class="btn btn-solid" href="index.html#download">All downloads</a>
+  </div>
+</header>
+
+<main class="ip-main">
+  <a class="ip-back" href="index.html#download">‹ Back to downloads</a>
+
+  <div class="ip-head">
+    <span class="eyebrow ip-eyebrow">The Windows Guide</span>
+    <h1>Install on <em>Windows</em>.</h1>
+    <div class="ip-sub">Three clicks, one friendly warning to wave past.</div>
+  </div>
+
+  <nav class="ip-osbar" aria-label="Choose your system">
+    <a href="mac.html">macOS</a>
+    <a href="windows.html" aria-current="page">Windows</a>
+    <a href="linux.html">Linux</a>
+  </nav>
+
+  <div class="ip-download">
+    <a class="btn btn-solid btn-lg" id="dl-win" href="https://github.com/AyanaayaW/litranite-releases/releases/download/v1.0.9/Litranite_1.0.9_x64-setup.exe">Download for Windows (.exe)</a>
+    <span class="ip-dl-alt">64-bit installer · Windows 10 &amp; 11</span>
+  </div>
+
+  <div class="ip-steps">
+
+    <!-- 1 -->
+    <section class="ip-step">
+      <div class="ip-num">1</div>
+      <div>
+        <h3>Run the installer</h3>
+        <p>Open the <span class="kbd">Litranite_1.0.9_x64-setup.exe</span> you downloaded (usually in your Downloads folder). Double-click it to start.</p>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="ip-step">
+      <div class="ip-num">2</div>
+      <div>
+        <h3>Wave past the blue SmartScreen box</h3>
+        <p>Because Litranite is a free student project and isn’t code-signed yet, Windows shows a blue <b>“Windows protected your PC”</b> screen. This is routine for new apps — not a virus warning. Here’s exactly what to click:</p>
+
+        <div class="mock mock-smartscreen" role="img" aria-label="Windows SmartScreen dialog. Click More info, then Run anyway.">
+          <div class="mock-ss-top">
+            <div class="ss-title">Windows protected your PC</div>
+            <div class="ss-desc">Microsoft Defender SmartScreen prevented an unrecognised app from starting. Running this app might put your PC at risk.</div>
+            <a class="mock-ss-moreinfo">More info<span class="ss-point">click this first</span></a>
+            <div class="mock-ss-app"><b>App:</b> Litranite_1.0.9_x64-setup.exe<br><b>Publisher:</b> Unknown publisher</div>
+          </div>
+          <div class="mock-ss-btns">
+            <span class="mbtn hi">Run anyway<span style="display:block;font-family:'Caveat',cursive;font-size:16px;color:#c15f38;font-weight:600;margin-top:2px">then this</span></span>
+            <span class="mbtn">Don’t run</span>
+          </div>
+        </div>
+        <p class="cmd-note">Click <b>More info</b> → then the <b>Run anyway</b> button appears. That’s the whole trick.</p>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="ip-step">
+      <div class="ip-num">3</div>
+      <div>
+        <h3>Finish the setup wizard</h3>
+        <p>Follow the small, polite prompts — <span class="kbd">Next → Install → Finish</span>. When it’s done, open <b>Litranite</b> from the Start menu. No account, no tour, no telemetry pop-ups.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="ip-final">
+    <h2>You’re ready to read.</h2>
+    <p>Drop in a PDF, start highlighting, and everything stays in one quiet place.</p>
+    <a class="btn btn-solid" href="index.html#features">See how it works</a>
+  </div>
+
+  <p class="ip-support">Stuck on a step? Email <a href="mailto:litranite@gmail.com">litranite@gmail.com</a> — we answer.</p>
+</main>
+
+<footer class="footer">
+  <div class="foot-brand">
+    <img class="logo-mark" src="assets/logo-on-dark.png" alt="" width="20" height="20">
+    <span class="logo-word">Litranite</span>
+  </div>
+  <nav class="foot-links" aria-label="Footer">
+    <a href="mailto:litranite@gmail.com">litranite@gmail.com</a>
+    <a href="https://github.com/AyanaayaW/litranite-releases/releases">GitHub</a>
+    <span>© 2026 Litranite</span>
+  </nav>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>

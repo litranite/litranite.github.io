@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Install Litranite on macOS — Guide</title>
+<meta name="description" content="Step-by-step guide to installing Litranite on macOS, including clearing the first-run security flag.">
+<meta name="theme-color" content="#f4ece0">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Litranite">
+<meta property="og:title" content="Install Litranite on macOS">
+<meta property="og:description" content="A clear, step-by-step guide to installing Litranite on macOS.">
+<meta property="og:image" content="assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="assets/og-image.png">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script>(function(){try{var t=localStorage.getItem('litranite-theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="nav">
+  <a class="logo" href="index.html#top">
+    <img class="logo-mark lm-light" src="assets/logo.png" alt="" width="28" height="28">
+    <img class="logo-mark lm-dark" src="assets/logo-on-dark.png" alt="" width="28" height="28">
+    <span class="logo-word">Litranite</span>
+  </a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="index.html#features">Features</a>
+    <a href="index.html#story">Story</a>
+    <a href="index.html#download">Download</a>
+  </nav>
+  <div class="nav-right">
+    <button class="theme-toggle" type="button" aria-label="Switch between day and night reading" title="Day / night">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.3 6.3 0 0 0 10.5 10.5Z"/></svg>
+    </button>
+    <a class="btn btn-solid" href="index.html#download">All downloads</a>
+  </div>
+</header>
+
+<main class="ip-main">
+  <a class="ip-back" href="index.html#download">‹ Back to downloads</a>
+
+  <div class="ip-head">
+    <span class="eyebrow ip-eyebrow">The macOS Guide</span>
+    <h1>Install on <em>Mac</em>.</h1>
+    <div class="ip-sub">Three small steps &amp; one quiet finale.</div>
+  </div>
+
+  <nav class="ip-osbar" aria-label="Choose your system">
+    <a href="mac.html" aria-current="page">macOS</a>
+    <a href="windows.html">Windows</a>
+    <a href="linux.html">Linux</a>
+  </nav>
+
+  <div class="ip-download">
+    <a class="btn btn-solid btn-lg" id="dl-mac-arm" href="https://github.com/AyanaayaW/litranite-releases/releases/download/v1.0.9/Litranite_1.0.9_aarch64.dmg">Download for macOS (.dmg)</a>
+    <span class="ip-dl-alt">Apple Silicon by default · on an older Mac? <a id="dl-mac-intel" href="https://github.com/AyanaayaW/litranite-releases/releases/download/v1.0.9/Litranite_1.0.9_x64.dmg">Intel build (x64)</a></span>
+  </div>
+
+  <div class="ip-steps">
+
+    <!-- 1 -->
+    <section class="ip-step">
+      <div class="ip-num">1</div>
+      <div>
+        <h3>Open the disk image</h3>
+        <p>Double-click the <span class="kbd">.dmg</span> you just downloaded. A little window opens showing the Litranite icon beside your Applications folder.</p>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="ip-step">
+      <div class="ip-num">2</div>
+      <div>
+        <h3>Drag Litranite into Applications</h3>
+        <p>Drag the Litranite icon onto the Applications folder in that same window. That copies the app onto your Mac — you can eject the disk image afterwards.</p>
+        <div class="mock" aria-hidden="true">
+          <div style="display:flex;align-items:center;justify-content:center;gap:40px;padding:26px 20px;background:#f3f1ee">
+            <div style="text-align:center">
+              <div style="width:60px;height:60px;margin:0 auto;border-radius:14px;background:#fff;display:grid;place-items:center;box-shadow:0 4px 12px rgba(0,0,0,.12)"><img src="assets/logo.png" alt="" style="width:44px;height:44px"></div>
+              <div style="font-size:12px;color:#333;margin-top:7px">Litranite</div>
+            </div>
+            <div style="font-family:'Caveat',cursive;font-size:26px;color:#c15f38">drag →</div>
+            <div style="text-align:center">
+              <div style="width:60px;height:60px;margin:0 auto;border-radius:12px;background:linear-gradient(180deg,#6fb0ff,#2f7ff0);display:grid;place-items:center;color:#fff;font-size:26px">📁</div>
+              <div style="font-size:12px;color:#333;margin-top:7px">Applications</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="ip-step">
+      <div class="ip-num">3</div>
+      <div>
+        <h3>Clear the first-run flag <span style="font-weight:400;font-style:italic;font-family:var(--font-display);color:var(--terracotta)">— the important one</span></h3>
+        <p>On first launch macOS may say Litranite <b>“is damaged”</b> or <b>“can’t be opened.”</b> It isn’t damaged — macOS quarantines apps that aren’t yet notarized (Litranite is a free student project). One command clears it, once. Three small moves:</p>
+
+        <p style="margin-top:16px"><b style="font-family:var(--font-display);font-style:italic;color:var(--terracotta);font-size:18px">a.</b> &nbsp;Open <b>Terminal</b> — press <span class="kbd">⌘ + Space</span>, type <b>Terminal</b>, hit Return.</p>
+        <div class="ip-shot"><img src="assets/spotlight-terminal.png" alt="macOS Spotlight search showing the Terminal app"></div>
+
+        <p style="margin-top:20px"><b style="font-family:var(--font-display);font-style:italic;color:var(--terracotta);font-size:18px">b.</b> &nbsp;Paste this command and press Return:</p>
+        <div class="cmd-box">
+          <code><span class="prompt">➜</span> xattr -cr /Applications/Litranite.app</code>
+          <button class="cmd-copy" type="button" data-copy="xattr -cr /Applications/Litranite.app">Copy</button>
+        </div>
+        <p class="cmd-note">Nothing visible happens — no output, no confirmation. That’s exactly right.</p>
+
+        <p style="margin-top:20px"><b style="font-family:var(--font-display);font-style:italic;color:var(--terracotta);font-size:18px">c.</b> &nbsp;Open <b>Finder › Applications</b> and double-click <b>Litranite</b>. It launches normally from now on.</p>
+        <div class="ip-shot"><img src="assets/applications-finder.png" alt="Finder Applications folder with Litranite selected"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="ip-final">
+    <h2>You’re ready to read.</h2>
+    <p>Drop in a PDF, start highlighting, and everything stays in one quiet place.</p>
+    <a class="btn btn-solid" href="index.html#features">See how it works</a>
+  </div>
+
+  <p class="ip-support">Stuck on a step? Email <a href="mailto:litranite@gmail.com">litranite@gmail.com</a> — we answer.</p>
+</main>
+
+<footer class="footer">
+  <div class="foot-brand">
+    <img class="logo-mark" src="assets/logo-on-dark.png" alt="" width="20" height="20">
+    <span class="logo-word">Litranite</span>
+  </div>
+  <nav class="foot-links" aria-label="Footer">
+    <a href="mailto:litranite@gmail.com">litranite@gmail.com</a>
+    <a href="https://github.com/AyanaayaW/litranite-releases/releases">GitHub</a>
+    <span>© 2026 Litranite</span>
+  </nav>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>
