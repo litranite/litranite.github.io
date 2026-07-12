@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Install Litranite on Linux — Guide</title>
+<meta name="description" content="Step-by-step guide to installing Litranite on Linux via AppImage, .deb, or .rpm.">
+<meta name="theme-color" content="#f4ece0">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Litranite">
+<meta property="og:title" content="Install Litranite on Linux">
+<meta property="og:description" content="A clear, step-by-step guide to installing Litranite on Linux.">
+<meta property="og:image" content="assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="assets/og-image.png">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script>(function(){try{var t=localStorage.getItem('litranite-theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="nav">
+  <a class="logo" href="index.html#top">
+    <img class="logo-mark lm-light" src="assets/logo.png" alt="" width="28" height="28">
+    <img class="logo-mark lm-dark" src="assets/logo-on-dark.png" alt="" width="28" height="28">
+    <span class="logo-word">Litranite</span>
+  </a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="index.html#features">Features</a>
+    <a href="index.html#story">Story</a>
+    <a href="index.html#download">Download</a>
+  </nav>
+  <div class="nav-right">
+    <button class="theme-toggle" type="button" aria-label="Switch between day and night reading" title="Day / night">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.3 6.3 0 0 0 10.5 10.5Z"/></svg>
+    </button>
+    <a class="btn btn-solid" href="index.html#download">All downloads</a>
+  </div>
+</header>
+
+<main class="ip-main">
+  <a class="ip-back" href="index.html#download">‹ Back to downloads</a>
+
+  <div class="ip-head">
+    <span class="eyebrow ip-eyebrow">The Linux Guide</span>
+    <h1>Install on <em>Linux</em>.</h1>
+    <div class="ip-sub">One portable file, or your package manager.</div>
+  </div>
+
+  <nav class="ip-osbar" aria-label="Choose your system">
+    <a href="mac.html">macOS</a>
+    <a href="windows.html">Windows</a>
+    <a href="linux.html" aria-current="page">Linux</a>
+  </nav>
+
+  <div class="ip-download">
+    <a class="btn btn-solid btn-lg" id="dl-linux" href="https://github.com/AyanaayaW/litranite-releases/releases/download/v1.0.9/Litranite_1.0.9_amd64.AppImage">Download AppImage</a>
+    <span class="ip-dl-alt">prefer packages? <a id="dl-deb" href="https://github.com/AyanaayaW/litranite-releases/releases/download/v1.0.9/Litranite_1.0.9_amd64.deb">.deb</a> &nbsp;·&nbsp; <a id="dl-rpm" href="https://github.com/AyanaayaW/litranite-releases/releases/download/v1.0.9/Litranite-1.0.9-1.x86_64.rpm">.rpm</a></span>
+  </div>
+
+  <div class="ip-steps">
+
+    <!-- 1 -->
+    <section class="ip-step">
+      <div class="ip-num">1</div>
+      <div>
+        <h3>Download the AppImage</h3>
+        <p>Grab the <span class="kbd">.AppImage</span> above. It’s a single self-contained file — nothing to install system-wide, and it runs on most distributions.</p>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="ip-step">
+      <div class="ip-num">2</div>
+      <div>
+        <h3>Make it executable</h3>
+        <p>In a terminal, mark the file as runnable (or right-click → Properties → Permissions → “Allow executing file as program”):</p>
+        <div class="cmd-box">
+          <code><span class="prompt">$</span> chmod +x Litranite_1.0.9_amd64.AppImage</code>
+          <button class="cmd-copy" type="button" data-copy="chmod +x Litranite_1.0.9_amd64.AppImage">Copy</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="ip-step">
+      <div class="ip-num">3</div>
+      <div>
+        <h3>Run it</h3>
+        <p>Double-click the file, or launch it from the terminal:</p>
+        <div class="cmd-box">
+          <code><span class="prompt">$</span> ./Litranite_1.0.9_amd64.AppImage</code>
+          <button class="cmd-copy" type="button" data-copy="./Litranite_1.0.9_amd64.AppImage">Copy</button>
+        </div>
+        <p class="cmd-note">On some systems you may need FUSE: <span class="kbd">sudo apt install libfuse2</span>.</p>
+      </div>
+    </section>
+
+    <!-- alt: package managers -->
+    <section class="ip-step">
+      <div class="ip-num">§</div>
+      <div>
+        <h3>Prefer a package manager?</h3>
+        <p>Install the downloaded package directly instead:</p>
+        <div class="cmd-box">
+          <code><span class="prompt">$</span> sudo dpkg -i Litranite_1.0.9_amd64.deb</code>
+          <button class="cmd-copy" type="button" data-copy="sudo dpkg -i Litranite_1.0.9_amd64.deb">Copy</button>
+        </div>
+        <div class="cmd-box" style="margin-top:10px">
+          <code><span class="prompt">$</span> sudo rpm -i Litranite-1.0.9-1.x86_64.rpm</code>
+          <button class="cmd-copy" type="button" data-copy="sudo rpm -i Litranite-1.0.9-1.x86_64.rpm">Copy</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="ip-final">
+    <h2>You’re ready to read.</h2>
+    <p>Drop in a PDF, start highlighting, and everything stays in one quiet place.</p>
+    <a class="btn btn-solid" href="index.html#features">See how it works</a>
+  </div>
+
+  <p class="ip-support">Stuck on a step? Email <a href="mailto:litranite@gmail.com">litranite@gmail.com</a> — we answer.</p>
+</main>
+
+<footer class="footer">
+  <div class="foot-brand">
+    <img class="logo-mark" src="assets/logo-on-dark.png" alt="" width="20" height="20">
+    <span class="logo-word">Litranite</span>
+  </div>
+  <nav class="foot-links" aria-label="Footer">
+    <a href="mailto:litranite@gmail.com">litranite@gmail.com</a>
+    <a href="https://github.com/AyanaayaW/litranite-releases/releases">GitHub</a>
+    <span>© 2026 Litranite</span>
+  </nav>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>
