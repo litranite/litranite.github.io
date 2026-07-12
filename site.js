@@ -723,3 +723,23 @@ document.querySelectorAll('.logo').forEach((logo) => {
     }
   }
 })();
+
+/* ------------------------------------------------------------------
+   "Who it's for" — build the scrolling role marquees
+   ------------------------------------------------------------------ */
+(function () {
+  var r1 = [['📚','Students'],['👩‍🏫','Teachers'],['🔬','Researchers'],['👨‍👩‍👧','Parents'],['📖','Book clubs'],['🗣️','Language learners'],['⚖️','Lawyers'],['🩺','Doctors'],['🎬','Screenwriters'],['📰','Journalists'],['🕯️','Poets']];
+  var r2 = [['🗺️','Historians'],['✍️','Writers'],['🎓','PhD candidates'],['🌙','Night-owl readers'],['🏡','Homeschoolers'],['✏️','Editors'],['💡','Curious minds'],['🎯','Debaters'],['🧠','Philosophers'],['☕','Retirees'],['✦','you']];
+  function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+  function build(id, items) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var html = items.map(function (it) {
+      var you = it[1] === 'you' ? ' you' : '';
+      return '<span class="chip' + you + '"><span class="em">' + it[0] + '</span>' + esc(it[1]) + '</span>';
+    }).join('');
+    el.innerHTML = html + html; // duplicate for a seamless loop
+  }
+  build('mrow1', r1);
+  build('mrow2', r2);
+})();
