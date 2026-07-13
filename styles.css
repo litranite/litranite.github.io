@@ -1603,3 +1603,6 @@ a, button, .tab, [role="tab"], .platform, .card, .feature-tab, .maker, summary, 
   .who .bob,.who .bob2,.who .tw,.who .wig,.who .capbob,.who .mmpulse,.who .scan,.who .glow,.who .heart,.who .wave,.who .check,.who .eyes,.who .eyes2,.who .eyes3,.who .eyes4,.who .eyes5,.wa1,.wa2,.wa3,.marquee-row { animation: none; }
   .who .check { stroke-dashoffset: 0; }
 }
+
+/* who-section: a more prominent eyebrow */
+.who-head .eyebrow { font-size: 16px; letter-spacing: .2em; margin-bottom: 20px; }

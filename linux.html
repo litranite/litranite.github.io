@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=2">
 <script>(function(){try{var t=localStorage.getItem('litranite-theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
@@ -58,8 +58,8 @@
   </nav>
 
   <div class="ip-download">
-    <a class="btn btn-solid btn-lg" id="dl-linux" href="https://github.com/AyanaayaW/litranite-releases/releases/download/v1.0.9/Litranite_1.0.9_amd64.AppImage">Download AppImage</a>
-    <span class="ip-dl-alt">prefer packages? <a id="dl-deb" href="https://github.com/AyanaayaW/litranite-releases/releases/download/v1.0.9/Litranite_1.0.9_amd64.deb">.deb</a> &nbsp;·&nbsp; <a id="dl-rpm" href="https://github.com/AyanaayaW/litranite-releases/releases/download/v1.0.9/Litranite-1.0.9-1.x86_64.rpm">.rpm</a></span>
+    <a class="btn btn-solid btn-lg" id="dl-linux" href="https://github.com/AyanaayaW/litranite-releases/releases/download/v1.1.0/Litranite_1.1.0_amd64.AppImage">Download AppImage</a>
+    <span class="ip-dl-alt">prefer packages? <a id="dl-deb" href="https://github.com/AyanaayaW/litranite-releases/releases/download/v1.1.0/Litranite_1.1.0_amd64.deb">.deb</a> &nbsp;·&nbsp; <a id="dl-rpm" href="https://github.com/AyanaayaW/litranite-releases/releases/download/v1.1.0/Litranite-1.1.0-1.x86_64.rpm">.rpm</a></span>
   </div>
 
   <div class="ip-steps">
@@ -80,8 +80,8 @@
         <h3>Make it executable</h3>
         <p>In a terminal, mark the file as runnable (or right-click → Properties → Permissions → “Allow executing file as program”):</p>
         <div class="cmd-box">
-          <code><span class="prompt">$</span> chmod +x Litranite_1.0.9_amd64.AppImage</code>
-          <button class="cmd-copy" type="button" data-copy="chmod +x Litranite_1.0.9_amd64.AppImage">Copy</button>
+          <code><span class="prompt">$</span> chmod +x Litranite_*.AppImage</code>
+          <button class="cmd-copy" type="button" data-copy="chmod +x Litranite_*.AppImage">Copy</button>
         </div>
       </div>
     </section>
@@ -93,8 +93,8 @@
         <h3>Run it</h3>
         <p>Double-click the file, or launch it from the terminal:</p>
         <div class="cmd-box">
-          <code><span class="prompt">$</span> ./Litranite_1.0.9_amd64.AppImage</code>
-          <button class="cmd-copy" type="button" data-copy="./Litranite_1.0.9_amd64.AppImage">Copy</button>
+          <code><span class="prompt">$</span> ./Litranite_*.AppImage</code>
+          <button class="cmd-copy" type="button" data-copy="./Litranite_*.AppImage">Copy</button>
         </div>
         <p class="cmd-note">On some systems you may need FUSE: <span class="kbd">sudo apt install libfuse2</span>.</p>
       </div>
@@ -107,12 +107,12 @@
         <h3>Prefer a package manager?</h3>
         <p>Install the downloaded package directly instead:</p>
         <div class="cmd-box">
-          <code><span class="prompt">$</span> sudo dpkg -i Litranite_1.0.9_amd64.deb</code>
-          <button class="cmd-copy" type="button" data-copy="sudo dpkg -i Litranite_1.0.9_amd64.deb">Copy</button>
+          <code><span class="prompt">$</span> sudo dpkg -i Litranite_*.deb</code>
+          <button class="cmd-copy" type="button" data-copy="sudo dpkg -i Litranite_*.deb">Copy</button>
         </div>
         <div class="cmd-box" style="margin-top:10px">
-          <code><span class="prompt">$</span> sudo rpm -i Litranite-1.0.9-1.x86_64.rpm</code>
-          <button class="cmd-copy" type="button" data-copy="sudo rpm -i Litranite-1.0.9-1.x86_64.rpm">Copy</button>
+          <code><span class="prompt">$</span> sudo rpm -i Litranite-*.rpm</code>
+          <button class="cmd-copy" type="button" data-copy="sudo rpm -i Litranite-*.rpm">Copy</button>
         </div>
       </div>
     </section>
@@ -142,7 +142,7 @@
   </nav>
 </footer>
 
-<script src="site.js"></script>
+<script src="site.js?v=2"></script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "715a8fd282424061a00a3bc4417c188f"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
