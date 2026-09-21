@@ -854,6 +854,10 @@ a, button, .tab, [role="tab"], .platform, .card, .feature-tab, .maker, summary, 
 @media (max-width: 720px) {
   .reader-split { grid-template-columns: 1fr; }
   .reader-page { border-right: none; border-bottom: 1px solid var(--card-line); }
+  /* stacked: reserve room for the auto-demo's quote + word and the longer
+     hint, so the hero doesn't grow twice in the first few seconds */
+  .reader-panel { min-height: 256px; }
+  .reader-page-hint { min-height: 39px; }
   .reader-tools .tool-label { display: none; }
 }
 
@@ -1083,9 +1087,12 @@ a, button, .tab, [role="tab"], .platform, .card, .feature-tab, .maker, summary, 
 .feature-tab.on { background: var(--ink); color: var(--cream); border-color: var(--ink); }
 :root[data-theme="dark"] .feature-tab.on { background: var(--terracotta); color: #1a130d; border-color: var(--terracotta); }
 
-.feature-stage { position: relative; }
-.feature-slide { display: none; }
-.feature-slide.on { display: block; animation: ftin .55s var(--ease); }
+/* All slides share one grid cell, so the stage is always as tall as the
+   tallest slide. Swapping with display:none changed the page height every
+   5s and shoved every section below up and down. */
+.feature-stage { position: relative; display: grid; }
+.feature-slide { grid-area: 1 / 1; visibility: hidden; opacity: 0; transition: opacity .5s var(--ease), visibility 0s linear .5s; }
+.feature-slide.on { visibility: visible; opacity: 1; transition: opacity .5s var(--ease); }
 @keyframes ftin { from { opacity: 0; transform: translateY(12px); } }
 
 .feature-shot {
@@ -1538,12 +1545,11 @@ a, button, .tab, [role="tab"], .platform, .card, .feature-tab, .maker, summary, 
 .who-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
 @media (max-width: 760px) { .who-grid { grid-template-columns: 1fr; } }
 
-/* The card itself never moves on hover (so the pointer can't slip off its edge
-   and cause a hover flicker); the inner layer lifts and flips instead. */
+/* Cards stay put: no hover lift, and the back face is absolutely positioned
+   so its demos can never change the card's height and nudge the page. */
 .who-card { position: relative; perspective: 1400px; cursor: pointer; }
-.who-inner { display: grid; transform-style: preserve-3d; height: 100%;
-  transition: transform .75s cubic-bezier(.3,.7,.2,1), translate .4s var(--ease); }
-.who-card:hover .who-inner, .who-card:focus-within .who-inner { translate: 0 -6px; }
+.who-inner { position: relative; display: grid; transform-style: preserve-3d; height: 100%;
+  transition: transform .75s cubic-bezier(.3,.7,.2,1); }
 .who-card.flipped .who-inner { transform: rotateY(180deg); }
 .who-face { grid-area: 1 / 1; position: relative; overflow: hidden; padding: 28px 30px 26px; border-radius: 26px;
   background: linear-gradient(180deg,#fefbf6,#f6eede); border: 1px solid var(--card-line);
@@ -1556,7 +1562,7 @@ a, button, .tab, [role="tab"], .platform, .card, .feature-tab, .maker, summary, 
   background: var(--tint, rgba(217,162,76,.18)); filter: blur(12px); pointer-events:none; opacity:.75;
   transition: opacity .4s, transform .5s var(--ease); }
 .who-card:hover .who-face::after { opacity: 1; transform: scale(1.15); }
-.who-back { transform: rotateY(180deg); display: flex; flex-direction: column; cursor: default; padding: 22px 24px 20px; }
+.who-back { position: absolute; inset: 0; transform: rotateY(180deg); display: flex; flex-direction: column; cursor: default; padding: 22px 24px 20px; }
 .who-illus { position: relative; z-index: 1; width: 100%; height: 168px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
 .char-svg { display: block; height: 168px; width: 214px; flex: none; overflow: visible; }
 .who-card h3 { position: relative; z-index: 1; font-family: var(--font-display); font-size: 25px; margin-bottom: 8px; }
@@ -1587,7 +1593,7 @@ a, button, .tab, [role="tab"], .platform, .card, .feature-tab, .maker, summary, 
 
 /* shared demo pieces — each replays when its tag is picked */
 .dm { flex: 1; position: relative; background: var(--card); border: 1px solid var(--card-line); border-radius: 16px;
-  padding: 14px 16px; font-size: 14px; line-height: 1.6; color: var(--ink); overflow: hidden; }
+  padding: 12px 16px; font-size: 14px; line-height: 1.6; color: var(--ink); overflow: hidden; }
 .dm-file { font-size: 11px; letter-spacing: .04em; color: var(--ink-55); border-bottom: 1px solid var(--card-line); padding-bottom: 7px; margin-bottom: 10px; }
 .dm-h { font-family: var(--font-display); font-weight: 600; font-size: 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
 .dm-n { font-family: var(--font-body); font-size: 11px; background: var(--pop); color: #fff; border-radius: 100px; padding: 0 7px; }
@@ -1602,8 +1608,8 @@ a, button, .tab, [role="tab"], .platform, .card, .feature-tab, .maker, summary, 
   font-style: italic; display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
 .dm-pg, .dm-cite { font-style: normal; font-size: 11px; color: var(--pop); background: rgba(193,95,56,.12); border-radius: 100px; padding: 1px 8px; white-space: nowrap; }
 .dm-note { font-family: 'Caveat', cursive; font-size: 20px; line-height: 1.1; color: var(--pop); }
-.dm-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
-.dm-list li { display: flex; gap: 10px; align-items: baseline; padding: 7px 10px; border-radius: 10px; background: rgba(131,80,47,.06); }
+.dm-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; }
+.dm-list li { display: flex; gap: 10px; align-items: baseline; padding: 5px 10px; border-radius: 10px; background: rgba(131,80,47,.06); }
 :root[data-theme="dark"] .dm-list li { background: rgba(236,227,208,.05); }
 .dm-list b { font-family: var(--font-display); font-weight: 600; min-width: 88px; }
 .dm-list span { color: var(--ink-70); font-size: 13px; }
