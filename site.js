@@ -675,7 +675,7 @@ document.querySelectorAll('.logo').forEach((logo) => {
 (function () {
   const el = document.getElementById('type-rot');
   if (!el) return;
-  const words = ['students', 'teachers', 'researchers', 'lifelong readers', 'curious minds', 'parents', 'everyone'];
+  const words = ['students', 'IB students', 'teachers', 'researchers', 'lifelong readers', 'curious minds', 'parents', 'everyone'];
   if (reduceMotion) { el.textContent = 'everyone'; return; }
   let wi = 0, ci = 0, deleting = false;
   function tick() {
@@ -742,4 +742,203 @@ document.querySelectorAll('.logo').forEach((logo) => {
   }
   build('mrow1', r1);
   build('mrow2', r2);
+})();
+
+/* ------------------------------------------------------------------
+   "Who it's for" cards — tap a tag (or the card) to flip it over and
+   play a tiny demo of exactly that feature
+   ------------------------------------------------------------------ */
+(function () {
+  const cards = Array.from(document.querySelectorAll('.who-card[data-role]'));
+  if (!cards.length) return;
+
+  // mind-map helper: nodes [label, x, y, main?], edges [a, b, label?]
+  function map(nodes, edges) {
+    let svg = '<svg viewBox="0 0 320 170" aria-hidden="true">';
+    edges.forEach((e, i) => {
+      const a = nodes[e[0]], b = nodes[e[1]];
+      svg += '<path class="dm-edge" style="--d:' + (0.35 + i * 0.25) + 's" d="M' + a[1] + ' ' + a[2] + ' L' + b[1] + ' ' + b[2] + '"/>';
+      if (e[2]) svg += '<text class="dm-lbl dm-node" style="--d:' + (0.6 + i * 0.25) + 's" x="' + (a[1] + b[1]) / 2 + '" y="' + ((a[2] + b[2]) / 2 - 6) + '">' + e[2] + '</text>';
+    });
+    nodes.forEach((n, i) => {
+      const w = n[0].length * 7 + 22;
+      svg += '<g class="dm-node' + (n[3] ? ' main' : '') + '" style="--d:' + (n[3] ? 0.1 : 0.3 + i * 0.25) + 's">' +
+        '<rect x="' + (n[1] - w / 2) + '" y="' + (n[2] - 13) + '" width="' + w + '" height="26" rx="13"/>' +
+        '<text x="' + n[1] + '" y="' + n[2] + '">' + n[0] + '</text></g>';
+    });
+    return '<div class="dm">' + svg + '</svg></div>';
+  }
+
+  const DEMOS = {
+    'students-0': {
+      cap: 'Select a line and it’s saved as a quote with its page number, ready for your essay.',
+      html: '<div class="dm"><div class="dm-file">Macbeth.pdf · Act 1, p.3</div>' +
+        '<p class="dm-text">When the hurlyburly’s done, when the battle’s lost and won… <mark class="dm-hl" style="--d:.4s">Fair is foul, and foul is fair</mark>: hover through the fog and filthy air.</p>' +
+        '<div class="dm-quote pop" style="--d:1.2s">“Fair is foul, and foul is fair” <span class="dm-pg">p.3</span></div></div>'
+    },
+    'students-1': {
+      cap: 'Tap a word you don’t know and it goes straight into your vocab bank to revise from.',
+      html: '<div class="dm"><div class="dm-h">Vocabulary bank <span class="dm-n pop" style="--d:1.4s">3</span></div><ul class="dm-list">' +
+        '<li class="pop" style="--d:.2s"><b>equivocate</b><span>speak vaguely to hide the truth</span></li>' +
+        '<li class="pop" style="--d:.6s"><b>hubris</b><span>excessive pride or confidence</span></li>' +
+        '<li class="pop" style="--d:1s"><b>soliloquy</b><span>a speech to oneself, alone on stage</span></li></ul></div>'
+    },
+    'students-2': {
+      cap: 'Put characters and themes on a mind-map and draw the links between them.',
+      html: map([['Macbeth', 160, 85, 1], ['Ambition', 58, 30], ['Guilt', 262, 30], ['Lady M.', 58, 142], ['Prophecy', 262, 142]],
+        [[0, 1], [0, 2], [0, 3], [0, 4], [1, 3, 'fuels']])
+    },
+    'researchers-0': {
+      cap: 'Highlight in colour and jot down thoughts as you read, right on the paper.',
+      html: '<div class="dm"><div class="dm-file">Lee_2021_sleep-and-memory.pdf · p.12</div>' +
+        '<p class="dm-text">Across three cohorts, <mark class="dm-hl" style="--d:.4s">sleep duration predicted recall more strongly than hours studied</mark>, <mark class="dm-hl" style="--d:1.1s;--hl:rgba(163,177,138,.6)">even after controlling for age</mark>.</p>' +
+        '<div class="dm-note pop" style="--d:1.7s;margin-top:10px">↳ contradicts Patel (2019)? check methods</div></div>'
+    },
+    'researchers-1': {
+      cap: 'Link findings across sources to see where they agree, and where they don’t.',
+      html: map([['Hypothesis', 160, 85, 1], ['Lee 2021', 50, 28], ['Patel 2019', 270, 28], ['Survey data', 160, 150]],
+        [[1, 0, 'supports'], [2, 0, 'contradicts'], [3, 0, 'supports']])
+    },
+    'researchers-2': {
+      cap: 'Draft with your saved quotes and page numbers right beside you. No hunting back through PDFs.',
+      html: '<div class="dm"><div class="dm-file">Draft · Literature review</div>' +
+        '<p class="dm-text"><span class="dm-type" data-type="Recent work suggests that rest matters more than effort: "></span></p>' +
+        '<div class="dm-quote pop" style="--d:2.2s">“sleep duration predicted recall more strongly” <span class="dm-cite">Lee, p.12</span></div></div>'
+    },
+    'teachers-0': {
+      cap: 'Mark up the set text before class, so the lines you want to discuss are ready.',
+      html: '<div class="dm"><div class="dm-file">Dickinson · Poem 479</div>' +
+        '<p class="dm-text">Because I could not stop for Death –<br>He <mark class="dm-hl" style="--d:.4s;--hl:rgba(232,153,141,.55)">kindly</mark> stopped for me –<br>The Carriage held but just Ourselves –<br>And <mark class="dm-hl" style="--d:1s">Immortality</mark>.</p>' +
+        '<div class="dm-note pop" style="--d:1.5s;margin-top:8px">ask: why “kindly”? tone shift →</div></div>'
+    },
+    'teachers-1': {
+      cap: 'Keep a reading list for every class, with the texts themselves on the same shelf.',
+      html: '<div class="dm"><div class="dm-h">Year 10 · Term 1 reading</div><ul class="dm-list">' +
+        '<li class="dm-done" style="--d:.3s"><i class="dm-check" style="--d:.3s"></i><span>Macbeth, Acts 1–2</span></li>' +
+        '<li class="dm-done" style="--d:.8s"><i class="dm-check" style="--d:.8s"></i><span>Of Mice and Men, ch. 1–3</span></li>' +
+        '<li class="dm-done" style="--d:1.3s"><i class="dm-check" style="--d:1.3s"></i><span>War poetry anthology</span></li>' +
+        '<li><i class="dm-check" style="--d:99s"></i><span>Unseen poetry practice</span></li></ul></div>'
+    },
+    'teachers-2': {
+      cap: 'Every unit’s PDFs, notes and quote lists together in one searchable folder.',
+      html: '<div class="dm"><div class="dm-h">📁 Unit 3 · War poetry</div><ul class="dm-list">' +
+        '<li class="pop" style="--d:.2s"><b>📄</b><span>Dulce et Decorum Est.pdf</span></li>' +
+        '<li class="pop" style="--d:.5s"><b>🖍️</b><span>Exposure, annotated</span></li>' +
+        '<li class="pop" style="--d:.8s"><b>❝</b><span>Key quotes: 14 saved</span></li>' +
+        '<li class="pop" style="--d:1.1s"><b>🗺️</b><span>Themes mind-map</span></li></ul></div>'
+    },
+    'booklovers-0': {
+      cap: 'Jot down what you think as you read, and pick up right where you left off.',
+      html: '<div class="dm"><div class="dm-file">Rebecca · Chapter 19</div>' +
+        '<p class="dm-text"><span class="dm-type" data-type="Did NOT see that coming. For book club on Thursday: was she lying the whole time? 🤯"></span></p></div>'
+    },
+    'booklovers-1': {
+      cap: 'Highlight the lines you love and find every one of them again in one place.',
+      html: '<div class="dm"><div class="dm-file">Favourite lines</div><p class="dm-text">' +
+        '<mark class="dm-hl" style="--d:.3s">So we beat on, boats against the current, borne back ceaselessly into the past.</mark><br>' +
+        '<mark class="dm-hl" style="--d:1s;--hl:rgba(232,153,141,.55)">I am no bird; and no net ensnares me.</mark><br>' +
+        '<mark class="dm-hl" style="--d:1.7s;--hl:rgba(163,177,138,.6)">I’m not afraid of storms, for I’m learning how to sail my ship.</mark></p></div>'
+    },
+    'booklovers-2': {
+      cap: 'Everything is saved on your own computer. No account, no cloud, nothing uploaded.',
+      html: '<div class="dm" style="text-align:center"><div class="pop" style="--d:.1s;font-size:44px;line-height:1.2">💻</div>' +
+        '<div class="dm-h pop" style="--d:.3s;justify-content:center">Your library lives here.</div>' +
+        '<div class="dm-badges"><span class="pop" style="--d:.6s">✓ works offline</span><span class="pop" style="--d:.9s">✓ no account</span><span class="pop" style="--d:1.2s">✓ 0 bytes uploaded</span></div></div>'
+    }
+  };
+
+  function typeInto(el) {
+    const text = el.getAttribute('data-type') || '';
+    if (reduceMotion) { el.textContent = text; return; }
+    const chars = Array.from(text);         // whole characters, so emoji never split
+    let i = 0;
+    (function step() {
+      if (!el.isConnected) return;
+      el.textContent = chars.slice(0, ++i).join('');
+      if (i < chars.length) setTimeout(step, 28 + Math.random() * 30);
+    })();
+  }
+
+  cards.forEach((card) => {
+    const front = card.querySelector('.who-front');
+    const tags = Array.from(card.querySelectorAll('.who-tag'));
+    const role = card.querySelector('.who-front h3').textContent;
+
+    const back = document.createElement('div');
+    back.className = 'who-face who-back';
+    back.setAttribute('aria-hidden', 'true');
+    back.inert = true;
+    back.innerHTML =
+      '<div class="wb-top"><span class="wb-role"></span><button type="button" class="wb-close">↺ flip back</button></div>' +
+      '<div class="wb-tabs" role="tablist"></div><div class="wb-stage"></div><p class="wb-cap"></p>';
+    back.querySelector('.wb-role').textContent = role;
+    const tabsEl = back.querySelector('.wb-tabs');
+    const stage = back.querySelector('.wb-stage');
+    const cap = back.querySelector('.wb-cap');
+    const tabBtns = tags.map((t) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'wb-tab'; b.setAttribute('role', 'tab');
+      b.textContent = t.textContent; b.dataset.demo = t.dataset.demo;
+      b.addEventListener('click', () => play(b.dataset.demo));
+      tabsEl.appendChild(b);
+      return b;
+    });
+    card.querySelector('.who-inner').appendChild(back);
+
+    let lastTag = tags[0];
+    function play(key) {
+      const d = DEMOS[key];
+      if (!d) return;
+      stage.innerHTML = d.html;              // fresh nodes = animations replay
+      cap.textContent = d.cap;
+      stage.querySelectorAll('[data-type]').forEach((el) => setTimeout(() => typeInto(el), 350));
+      tabBtns.forEach((b) => b.setAttribute('aria-selected', String(b.dataset.demo === key)));
+    }
+    function flip(open) {
+      card.classList.toggle('flipped', open);
+      front.inert = open; back.inert = !open;
+      front.setAttribute('aria-hidden', String(open));
+      back.setAttribute('aria-hidden', String(!open));
+      if (open) setTimeout(() => back.querySelector('.wb-close').focus({ preventScroll: true }), 350);
+      else if (lastTag) lastTag.focus({ preventScroll: true });
+    }
+
+    tags.forEach((t) => t.addEventListener('click', (e) => {
+      e.stopPropagation(); lastTag = t; play(t.dataset.demo); flip(true);
+    }));
+    // clicking anywhere else on the front opens the first demo
+    front.addEventListener('click', () => { lastTag = tags[0]; play(tags[0].dataset.demo); flip(true); });
+    back.querySelector('.wb-close').addEventListener('click', () => flip(false));
+    card.addEventListener('keydown', (e) => { if (e.key === 'Escape' && card.classList.contains('flipped')) flip(false); });
+  });
+})();
+
+/* ------------------------------------------------------------------
+   Partner announcement bar — dismiss, and remember it
+   ------------------------------------------------------------------ */
+(function () {
+  const bar = document.getElementById('partner-bar');
+  if (!bar) return;
+  bar.querySelector('.pb-close').addEventListener('click', () => {
+    bar.remove();
+    try { localStorage.setItem('litranite-partner-bar', 'dismissed'); } catch (e) {}
+  });
+})();
+
+/* ------------------------------------------------------------------
+   Referral pass — keep the tear-off notches exactly on the perforation
+   (side-by-side on desktop, stacked on phones)
+   ------------------------------------------------------------------ */
+(function () {
+  const pass = document.querySelector('.pass');
+  const main = pass && pass.querySelector('.pass-main');
+  if (!main) return;
+  function place() {
+    const stacked = getComputedStyle(pass).gridTemplateColumns.split(' ').length === 1;
+    const cut = stacked ? main.offsetHeight / pass.offsetHeight : main.offsetWidth / pass.offsetWidth;
+    pass.style.setProperty('--cut', (cut * 100).toFixed(2) + '%');
+  }
+  place();
+  if ('ResizeObserver' in window) new ResizeObserver(place).observe(pass);
+  else window.addEventListener('resize', place);
 })();

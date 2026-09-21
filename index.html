@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=2">
+<link rel="stylesheet" href="styles.css?v=8">
 <script>
   /* set theme before paint to avoid a flash */
   (function () {
@@ -31,6 +31,7 @@
       var t = localStorage.getItem('litranite-theme');
       if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       document.documentElement.setAttribute('data-theme', t);
+      if (localStorage.getItem('litranite-partner-bar') === 'dismissed') document.documentElement.classList.add('pb-dismissed');
     } catch (e) {}
   })();
 </script>
@@ -59,6 +60,12 @@
     <a class="btn btn-solid" href="#download">Download</a>
   </div>
 </header>
+
+<!-- Partner announcement: points at the section below, never off-site -->
+<div class="partner-bar" id="partner-bar" role="region" aria-label="Partner announcement">
+  <p class="pb-text"><span class="pb-ico" aria-hidden="true">📚</span> Partnered with <b>IB Way 2 Seven</b><span class="pb-long"> — Litranite users get a special rate on IA, EE &amp; TOK guidance.</span> <a href="#ibway2seven-partnership">Learn more</a></p>
+  <button type="button" class="pb-close" aria-label="Dismiss announcement">×</button>
+</div>
 
 <main id="top">
 
@@ -120,6 +127,12 @@
       <a class="btn btn-solid btn-download" id="hero-download" href="#download">Download Free</a>
       <a class="btn btn-ghost" href="#features">See how it works</a>
     </div>
+    <a class="ib-note" href="#ibway2seven-partnership">
+      <span class="ib-pin" aria-hidden="true"></span>
+      <span class="ib-note-k">IB student?</span>
+      Get a special rate on IA, EE &amp; TOK help from our partner <b>IB Way 2 Seven</b>.
+      <span class="ib-note-go">see how it works →</span>
+    </a>
     <p class="hero-sub"><span class="js-version">v1.1.0</span> · free &amp; open source · no account, no telemetry</p>
   </section>
 
@@ -190,11 +203,13 @@
       <div class="marquee-row r2" id="mrow2"></div>
     </div>
 
-    <p class="who-eg reveal">…a few of them, up close ↓</p>
+    <p class="who-eg reveal">…a few of them, up close. Tap a tag to see it in action ↓</p>
 
     <div class="who-grid">
 
-      <article class="who-card reveal" style="--tint:rgba(217,162,76,.2)">
+      <article class="who-card reveal" data-role="students" style="--tint:rgba(217,162,76,.2)">
+        <div class="who-inner">
+        <div class="who-face who-front">
         <div class="who-illus">
           <svg class="char-svg" viewBox="0 0 230 182" fill="none">
             <path class="anim tw" d="M186 46 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z" fill="#d9a24c"/>
@@ -227,10 +242,14 @@
         </div>
         <h3>Students</h3>
         <p>English, literature, history, exam season — save quotes with their page numbers, keep a vocabulary bank, and map characters &amp; themes so it all sticks.</p>
-        <div class="who-tags"><span>quotes</span><span>vocab bank</span><span>mind-maps</span></div>
+        <div class="who-tags"><button type="button" class="who-tag" data-demo="students-0">quotes</button><button type="button" class="who-tag" data-demo="students-1">vocab bank</button><button type="button" class="who-tag" data-demo="students-2">mind-maps</button></div>
+              </div>
+        </div>
       </article>
 
-      <article class="who-card reveal" style="--tint:rgba(193,95,56,.17)">
+      <article class="who-card reveal" data-role="researchers" style="--tint:rgba(193,95,56,.17)">
+        <div class="who-inner">
+        <div class="who-face who-front">
         <div class="who-illus">
           <svg class="char-svg" viewBox="0 0 230 182" fill="none">
             <rect x="40" y="42" width="90" height="112" rx="9" fill="#fbf7f0" stroke="#83502f" stroke-width="2.5"/>
@@ -259,10 +278,14 @@
         </div>
         <h3>Researchers</h3>
         <p>Drop in papers and sources, annotate as you read, and connect findings on a mind-map — then draft with every quote and citation already at hand.</p>
-        <div class="who-tags"><span>annotate PDFs</span><span>link ideas</span><span>drafting</span></div>
+        <div class="who-tags"><button type="button" class="who-tag" data-demo="researchers-0">annotate PDFs</button><button type="button" class="who-tag" data-demo="researchers-1">link ideas</button><button type="button" class="who-tag" data-demo="researchers-2">drafting</button></div>
+              </div>
+        </div>
       </article>
 
-      <article class="who-card reveal" style="--tint:rgba(163,177,138,.22)">
+      <article class="who-card reveal" data-role="teachers" style="--tint:rgba(163,177,138,.22)">
+        <div class="who-inner">
+        <div class="who-face who-front">
         <div class="who-illus">
           <svg class="char-svg" viewBox="0 0 230 182" fill="none">
             <rect x="34" y="34" width="130" height="88" rx="10" fill="#33241a"/>
@@ -285,10 +308,14 @@
         </div>
         <h3>Teachers</h3>
         <p>Prep set texts and reading lists, mark up passages to discuss in class, and keep the resources for every unit in one calm, searchable place.</p>
-        <div class="who-tags"><span>mark up texts</span><span>reading lists</span><span>lesson prep</span></div>
+        <div class="who-tags"><button type="button" class="who-tag" data-demo="teachers-0">mark up texts</button><button type="button" class="who-tag" data-demo="teachers-1">reading lists</button><button type="button" class="who-tag" data-demo="teachers-2">lesson prep</button></div>
+              </div>
+        </div>
       </article>
 
-      <article class="who-card reveal" style="--tint:rgba(217,162,76,.22)">
+      <article class="who-card reveal" data-role="booklovers" style="--tint:rgba(217,162,76,.22)">
+        <div class="who-inner">
+        <div class="who-face who-front">
         <div class="who-illus">
           <svg class="char-svg" viewBox="0 0 230 182" fill="none">
             <ellipse class="anim glow" cx="108" cy="140" rx="70" ry="32" fill="#d9a24c"/>
@@ -308,7 +335,9 @@
         </div>
         <h3>Book lovers</h3>
         <p>Book clubs, hobby projects, a novel you can't put down — anyone who reads and wants to remember it. No account needed, just you and the page.</p>
-        <div class="who-tags"><span>notes</span><span>highlights</span><span>on your device</span></div>
+        <div class="who-tags"><button type="button" class="who-tag" data-demo="booklovers-0">notes</button><button type="button" class="who-tag" data-demo="booklovers-1">highlights</button><button type="button" class="who-tag" data-demo="booklovers-2">on your device</button></div>
+              </div>
+        </div>
       </article>
 
     </div>
@@ -335,40 +364,82 @@
     </div>
   </section>
 
-  <!-- STORY / COLOPHON — reads (and highlights) itself -->
+  <!-- OUR STORY — the problem, then the two of us who hit it -->
   <section class="colophon" id="story">
     <span class="margin-note mn-1" aria-hidden="true">the whole problem&nbsp;↘</span>
     <span class="margin-note mn-2" aria-hidden="true">&larr; and that's the fix</span>
     <span class="margin-note mn-3" aria-hidden="true">hi — that's us&nbsp;👋</span>
     <div class="colophon-inner">
-      <span class="eyebrow reveal">The story</span>
+      <span class="eyebrow reveal">Our story</span>
       <p class="colophon-lead reveal">Every subject asks you to <span class="sweep" data-c="amber">read something</span>, then <span class="sweep" data-c="green">write something</span>. Between those two, everything scatters — <em>PDFs in one place, notes in another, files with no system holding them together.</em></p>
       <p class="colophon-body reveal">A literature essay, a research project, a history assignment, a week of revision — the path from a source to finished work is far more broken than it should be. We built Litranite to <span class="sweep" data-c="rose">close that gap</span>: one quiet place to read, mark, think and write. No accounts, no clutter, no noise.</p>
+      <p class="story-bridge reveal">For the two of us, it wasn't abstract.<span>here's where it started ↓</span></p>
+    </div>
 
-      <div class="use-chips reveal">
-        <span>Essays</span><span>Research</span><span>Revision</span><span>History</span><span>Everyday notes</span>
-      </div>
-
-      <div class="makers reveal">
-        <div class="rule-orn"><span>&#10086;</span></div>
-        <p class="makers-label">Made by two students</p>
-        <div class="maker-row">
-          <a class="maker" href="https://www.linkedin.com/in/ayanaaya-w-1176b4291/" target="_blank" rel="noopener noreferrer">
-            <span class="monogram">AW</span>
-            <div class="maker-name">Ayanaaya Waghmare</div>
-            <div class="maker-role">Co-founder</div>
-            <span class="maker-in">LinkedIn ↗</span>
-          </a>
-          <span class="maker-amp" aria-hidden="true">&amp;</span>
-          <a class="maker" href="https://www.linkedin.com/in/tanissha-gunjal-754a77383/" target="_blank" rel="noopener noreferrer">
-            <span class="monogram">TG</span>
-            <div class="maker-name">Tanissha Gunjal</div>
-            <div class="maker-role">Co-founder</div>
-            <span class="maker-in">LinkedIn ↗</span>
-          </a>
+    <div class="story-founders">
+      <div class="why-grid">
+      <article class="why-card reveal" style="--r:-.7deg">
+        <a class="why-who" href="https://www.linkedin.com/in/ayanaaya-w-1176b4291/" target="_blank" rel="noopener noreferrer">
+          <span class="monogram why-mono">AW</span>
+          <div><b>Ayanaaya Waghmare</b><span>Co-founder · LinkedIn ↗</span></div>
+        </a>
+        <h3>“I don't like annotating in books. It gets cramped.”</h3>
+        <p>A margin is about two centimetres wide. Notes end up squeezed in sideways, arrows cross over each other, and sticky notes fall out. By the time exams come round, the book is a mess and the one note you need is impossible to find.</p>
+        <div class="why-ba" aria-hidden="true">
+          <div class="ba-side ba-before">
+            <span class="ba-lbl">in the book</span>
+            <div class="ba-page">
+              <i></i><i></i><i></i><i></i><i></i>
+              <span class="scr s1">irony?? → ch.3</span>
+              <span class="scr s2">theme: pride</span>
+              <span class="scr s3">!!</span>
+              <span class="scr s4">foreshadow</span>
+            </div>
+          </div>
+          <span class="ba-arrow">→</span>
+          <div class="ba-side ba-after">
+            <span class="ba-lbl">in Litranite</span>
+            <ul>
+              <li><em class="d1"></em>Quotes <b>12</b></li>
+              <li><em class="d2"></em>Vocab <b>8</b></li>
+              <li><em class="d3"></em>Notes <b>5</b></li>
+              <li><em class="d4"></em>Themes map</li>
+            </ul>
+          </div>
         </div>
-        <p class="makers-sign">Built by two students — for anyone with something to read, and something to say.</p>
-      </div>
+        <p class="why-fix"><span>→</span> so the page stays clean, your notes get unlimited space, and everything is sorted where you can find it</p>
+      </article>
+
+      <article class="why-card reveal" style="--r:.7deg">
+        <a class="why-who" href="https://www.linkedin.com/in/tanissha-gunjal-754a77383/" target="_blank" rel="noopener noreferrer">
+          <span class="monogram why-mono">TG</span>
+          <div><b>Tanissha Gunjal</b><span>Co-founder · LinkedIn ↗</span></div>
+        </a>
+        <h3>“Moving from ICSE to the IB, English was the hardest part.”</h3>
+        <p>In IB English, knowing what happens in the book isn't enough. You have to analyse <em>how</em> the writer does it: the techniques, the word choices, the way themes build up. That means annotating in far more depth than I'd ever had to before, and I didn't have a system for keeping track of any of it.</p>
+        <div class="why-ba" aria-hidden="true">
+          <div class="ba-side ba-before">
+            <span class="ba-lbl">ICSE</span>
+            <p class="ba-q">What happens?</p>
+            <p class="ba-s">plot · characters · context</p>
+          </div>
+          <span class="ba-arrow">→</span>
+          <div class="ba-side ba-after">
+            <span class="ba-lbl">IB</span>
+            <p class="ba-q">How does the writer do it, and why?</p>
+            <p class="ba-s">technique · language · structure · theme</p>
+          </div>
+        </div>
+        <p class="why-fix"><span>→</span> so evidence, terms and ideas get organised as you annotate, and connecting them into an analysis gets easier</p>
+      </article>
+    </div>
+
+      <p class="why-close reveal">If you've ever squeezed a note into a margin, or stared at a passage wondering what to say about it, <span class="sweep" data-c="amber">you've had our problem too</span>. That's who Litranite is for.</p>
+    </div>
+
+    <div class="colophon-inner makers reveal">
+      <div class="rule-orn"><span>&#10086;</span></div>
+      <p class="makers-sign">Built by two students — for anyone with something to read, and something to say.</p>
     </div>
   </section>
 
@@ -403,6 +474,38 @@
         <summary>Who made it?<span class="faq-q-icon">+</span></summary>
         <div class="faq-a">Two students — Ayanaaya Waghmare and Tanissha Gunjal — who were tired of juggling PDFs, notes and vocab in a dozen places. <a href="#story">Read the story →</a></div>
       </details>
+    </div>
+  </section>
+
+  <!-- PARTNER — IB Way 2 Seven. Awareness only: no outbound links here;
+       the referral (and its confirmation step) lives inside the app. -->
+  <section class="partner" id="ibway2seven-partnership" aria-labelledby="partner-h">
+    <div class="pass-wrap reveal">
+      <div class="pass">
+        <div class="pass-main">
+          <span class="partner-tag">Partner</span>
+          <h2 id="partner-h">IB Way 2 Seven <span class="partner-x" aria-hidden="true">×</span><span class="sr-only"> and </span> Litranite</h2>
+          <p class="partner-intro">We've partnered with IB Way 2 Seven to give Litranite users extra support where it matters most — the assessed work.</p>
+          <dl class="pass-roles">
+            <div><dt><i class="dot-lit"></i>What Litranite does</dt><dd>Keeps your reading, annotations, notes, and essays in one offline workspace — so you're organised before you even start writing.</dd></div>
+            <div><dt><i class="dot-ib"></i>What IB Way 2 Seven does</dt><dd>Independent IB consultants offering line-by-line guidance on IAs, EEs, and TOK — topic feasibility, research direction, and rubric alignment, plus mentorship for time management and workload planning.</dd></div>
+          </dl>
+        </div>
+        <div class="pass-stub">
+          <svg class="pass-stamp" viewBox="0 0 100 100" aria-hidden="true">
+            <defs><path id="stamp-ring" d="M50 50 m-36 0 a36 36 0 1 1 72 0 a36 36 0 1 1 -72 0"/></defs>
+            <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="50" cy="50" r="27" fill="none" stroke="currentColor" stroke-width="1.2"/>
+            <text><textPath href="#stamp-ring" textLength="222" lengthAdjust="spacing">IA · EE · TOK · IA · EE · TOK ·</textPath></text>
+            <text class="st-mid" x="50" y="56" text-anchor="middle">IB</text>
+          </svg>
+          <span class="pass-kicker">Referral pass</span>
+          <p class="pass-big">Special rate</p>
+          <p class="partner-offer">Download Litranite and get a special referral rate on IB Way 2 Seven's services.</p>
+          <a class="btn btn-solid" href="#download">Download Litranite to Get Started</a>
+        </div>
+      </div>
+      <p class="partner-fine">Services are non-refundable. Litranite is not affiliated with or responsible for services provided by IB Way 2 Seven.</p>
     </div>
   </section>
 
@@ -478,7 +581,7 @@
   </nav>
 </footer>
 
-<script src="site.js?v=2"></script>
+<script src="site.js?v=8"></script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "715a8fd282424061a00a3bc4417c188f"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
