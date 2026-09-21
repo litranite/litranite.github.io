@@ -1793,7 +1793,21 @@ a, button, .tab, [role="tab"], .platform, .card, .feature-tab, .maker, summary, 
 .pass-main { padding: 26px 30px 24px; text-align: left; }
 .partner-tag { display: inline-block; padding: 2px 11px; border-radius: 100px; font-size: 10.5px; font-weight: 600; letter-spacing: .2em;
   text-transform: uppercase; color: var(--terracotta); border: 1px solid currentColor; opacity: .85; }
-.partner h2 { margin: 10px 0 0; font-size: clamp(22px,2.6vw,28px); line-height: 1.15; }
+.pass-logos { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+/* both logos sit in matching tiles; the tile colour is the Litranite icon's
+   own background in each theme, so the two read as a pair */
+.pl-tile { width: 58px; height: 58px; flex: none; display: grid; place-items: center; border-radius: 16px; overflow: hidden;
+  background: #fff; border: 1px solid var(--card-line); box-shadow: 0 8px 18px -12px rgba(46,32,22,.45); }
+:root[data-theme="dark"] .pl-tile { background: #212120; box-shadow: 0 8px 18px -12px rgba(0,0,0,.7); }
+.pl-tile img { width: 44px; height: 44px; object-fit: contain; }
+.pl-tile .lm-light, .pl-tile .lm-dark { width: 50px; height: 50px; }
+.pass-logos .lm-dark { display: none; }
+:root[data-theme="dark"] .pass-logos .lm-light { display: none; }
+:root[data-theme="dark"] .pass-logos .lm-dark { display: block; }
+.pl-x { font-family: var(--font-display); font-size: 22px; color: var(--pop); transition: rotate .5s var(--ease); }
+.pass:hover .pl-x { rotate: 90deg; }
+.pass-logos .partner-tag { margin-left: 6px; }
+.partner h2 { margin: 0; font-size: clamp(22px,2.6vw,28px); line-height: 1.15; }
 .partner-x { color: var(--pop); font-weight: 500; display: inline-block; margin: 0 .08em; transition: rotate .5s var(--ease); }
 .pass:hover .partner-x { rotate: 90deg; }
 .partner-intro { margin: 8px 0 0; font-size: 15px; line-height: 1.6; color: var(--ink-70); }
