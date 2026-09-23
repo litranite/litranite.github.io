@@ -23,14 +23,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=13">
+<link rel="stylesheet" href="styles.css?v=19">
 <script>
   /* set theme before paint to avoid a flash */
   (function () {
     try {
       var t = localStorage.getItem('litranite-theme');
+      var dark = ['dark','serif-dark','amoled','nord','catppuccin','everforest'];
       if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       document.documentElement.setAttribute('data-theme', t);
+      document.documentElement.setAttribute('data-scheme', dark.indexOf(t) >= 0 ? 'dark' : 'light');
       if (localStorage.getItem('litranite-partner-bar') === 'dismissed') document.documentElement.classList.add('pb-dismissed');
     } catch (e) {}
   })();
@@ -49,11 +51,12 @@
   <nav class="nav-links" aria-label="Main">
     <a href="#features">Features</a>
     <a href="#story">Story</a>
+    <a href="#testimonials">Reviews</a>
     <a href="#faq">FAQ</a>
     <a href="#download">Download</a>
   </nav>
   <div class="nav-right">
-    <button class="theme-toggle" type="button" aria-label="Switch between day and night reading" title="Day / night">
+    <button class="theme-toggle" id="theme-btn" type="button" aria-label="Switch between day and night reading" title="Day / night">
       <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
       <svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.3 6.3 0 0 0 10.5 10.5Z"/></svg>
     </button>
@@ -88,6 +91,7 @@
       <div class="reader-chrome">
         <span class="reader-dots"><i></i><i></i><i></i></span>
         <span class="reader-file" id="reader-file">Pride &amp; Prejudice.pdf — p.1</span>
+        <button class="peb-one" id="peb-one" type="button" title="Try another theme" aria-label="Try another theme"><span></span></button>
         <button class="reader-shuffle" id="reader-shuffle" type="button" aria-label="Load a different passage"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h4v4M20 4l-6 6M16 20h4v-4M20 20l-6-6M4 5l4 4M4 19l6-6"/></svg>new passage</button>
       </div>
 
@@ -133,7 +137,7 @@
       Get a special rate on IA, EE &amp; TOK help from our partner <b>IB Way 2 Seven</b>.
       <span class="ib-note-go">see how it works →</span>
     </a>
-    <p class="hero-sub"><span class="js-version">v1.1.0</span> · free &amp; open source · no account, no telemetry</p>
+    <p class="hero-sub"><span class="js-version">v1.1.0</span> · free &amp; open source · nine themes · no account, no telemetry</p>
   </section>
 
   <!-- SHOWCASE — big, switchable screenshots -->
@@ -443,6 +447,69 @@
     </div>
   </section>
 
+  <!-- TESTIMONIALS — a pinboard of notes. Names appear exactly as each
+       person consented on the form (full name / first name / anonymous) -->
+  <section class="testi" id="testimonials">
+    <div class="te-head reveal">
+      <span class="eyebrow">From early users</span>
+      <h2 data-underline>Don't take <span class="accent">our word for it.</span></h2>
+      <div class="te-stamps">
+        <div class="te-stamp"><b>4.7</b><span>out of 5<br>easy to install</span></div>
+        <div class="te-stamp"><b>4.6</b><span>out of 5<br>easy to learn</span></div>
+        <div class="te-stamp"><b>11</b><span>early users<br>asked</span></div>
+      </div>
+    </div>
+
+    <figure class="te-featured reveal">
+      <blockquote>Not only a great tool for storing and opening PDFs, documents and notes, but also for <span class="sweep" data-c="amber">annotations, flowcharts and mind-maps</span> — pretty much whatever you need. It's very user-friendly, and useful for both parents and teachers alike.</blockquote>
+      <figcaption><span class="tf-name">Jonathan</span><span class="tf-role">Student · PDFs, documents &amp; notes</span></figcaption>
+    </figure>
+
+    <div class="te-wall">
+        <figure class="tnote reveal" style="--tint:#e9c46a;--r:-1.4deg">
+          <blockquote>Very convenient, and it organises material so it's extremely easy to locate and use. The offline feature means notes are available at all times.</blockquote>
+          <figcaption><span class="tn-name">Richa Menon</span><span class="tn-role">Student · schoolwork</span></figcaption>
+        </figure>
+        <figure class="tnote reveal" style="--tint:#a3b18a;--r:1.1deg">
+          <blockquote>I really liked the available colour themes, the simple layout, and the ease with which I could create books and notes.</blockquote>
+          <figcaption><span class="tn-name">Rohitash Sriram</span><span class="tn-role">IB student · annotating essays</span></figcaption>
+        </figure>
+        <figure class="tnote reveal" style="--tint:#e8998d;--r:-0.8deg">
+          <blockquote>It's aesthetically pleasing and easy to use, which motivates me to study more.</blockquote>
+          <figcaption><span class="tn-name tn-anon">Anonymous</span><span class="tn-role">Student · notes &amp; documents</span></figcaption>
+        </figure>
+        <figure class="tnote reveal" style="--tint:#9db7c9;--r:1.5deg">
+          <blockquote>Really helpful for anyone doing English Language &amp; Literature in IB DP, or even MYP. We could customise the theme ourselves, and add all the different novels we read.</blockquote>
+          <figcaption><span class="tn-name">Armaan</span><span class="tn-role">Student · English Lang &amp; Lit</span></figcaption>
+        </figure>
+        <figure class="tnote reveal" style="--tint:#e9c46a;--r:1.2deg">
+          <blockquote>Mind-maps — they let me portray my ideas in a much neater way.</blockquote>
+          <figcaption><span class="tn-name">Meher Ahluwalia</span><span class="tn-role">Student · studying &amp; note-making</span></figcaption>
+        </figure>
+        <figure class="tnote reveal" style="--tint:#a3b18a;--r:-1.2deg">
+          <blockquote>The aesthetics, and how there's no need to create an account.</blockquote>
+          <figcaption><span class="tn-name tn-anon">Anonymous</span><span class="tn-role">Student · research</span></figcaption>
+        </figure>
+        <figure class="tnote reveal" style="--tint:#9db7c9;--r:-1.5deg">
+          <blockquote>Customisation, the way the different features fit together, and the UI.</blockquote>
+          <figcaption><span class="tn-name">Amaan</span><span class="tn-role">University student · notes &amp; testing</span></figcaption>
+        </figure>
+        <figure class="tnote reveal" style="--tint:#e8998d;--r:1.3deg">
+          <blockquote>A great app with a great concept — helping people get access to all kinds of study materials.</blockquote>
+          <figcaption><span class="tn-name tn-anon">Anonymous</span><span class="tn-role">Student · study resources</span></figcaption>
+        </figure>
+        <figure class="tnote reveal" style="--tint:#e9c46a;--r:-1.1deg">
+          <blockquote>Minimalism.</blockquote>
+          <figcaption><span class="tn-name">Junaid</span><span class="tn-role">Student · note-taking &amp; organising ideas</span></figcaption>
+        </figure>
+        <figure class="tnote reveal" style="--tint:#a3b18a;--r:1.4deg">
+          <blockquote>Still exploring, but it's a good alternative to MS Word.</blockquote>
+          <figcaption><span class="tn-name">Ronne Datta</span><span class="tn-role">Student · writing music</span></figcaption>
+        </figure>
+    </div>
+    <p class="te-note reveal">Real answers from our first users, shared with their permission.</p>
+  </section>
+
   <!-- FAQ -->
   <section class="faq" id="faq">
     <div class="faq-head reveal">
@@ -456,19 +523,43 @@
       </details>
       <details class="faq-item">
         <summary>Where is my work stored?<span class="faq-q-icon">+</span></summary>
-        <div class="faq-a">Entirely on your own device — no account, no cloud, no telemetry. Nothing leaves your computer. (Because it’s local, do keep your own backups; there’s a one-click export built in.)</div>
+        <div class="faq-a">Entirely on your own device — no account, no cloud, no telemetry. Your notes and annotations are saved as plain markdown and JSON files you can open with anything. (Because it’s local, do keep your own backups; there’s a one-click export built in.)</div>
       </details>
       <details class="faq-item">
         <summary>What can I open and make?<span class="faq-q-icon">+</span></summary>
         <div class="faq-a">Drop in any PDF and it becomes a book on your shelf. Alongside it you get highlights in colour, a vocabulary bank, saved quotes with page numbers, free-form notes and folders, to-do lists, and mind-maps.</div>
       </details>
       <details class="faq-item">
+        <summary>Can I change how it looks?<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">Nine themes ship with it — Light, Dark, Serif Light, Serif Dark, AMOLED, Nord, Blush, Catppuccin and Everforest. This website wears them too: <button type="button" class="faq-peb" data-t="nord">Nord</button> <button type="button" class="faq-peb" data-t="blush">Blush</button> <button type="button" class="faq-peb" data-t="everforest">Everforest</button> <button type="button" class="faq-peb" data-t="light">back to paper</button></div>
+      </details>
+      <details class="faq-item">
+        <summary>Does it work without internet?<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">Yes. Everything — opening PDFs, annotating, notes, mind-maps, export — works completely offline. The only time Litranite reaches the internet is to check whether a newer version exists.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Is there a phone or tablet version?<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">Not yet. Litranite is a desktop app for macOS, Windows and Linux, because that’s where the close reading and essay writing tends to happen. A mobile companion is something we’d like to do later.</div>
+      </details>
+      <details class="faq-item">
         <summary>Which systems does it run on?<span class="faq-q-icon">+</span></summary>
         <div class="faq-a">macOS (Apple Silicon &amp; Intel), Windows 10 &amp; 11, and Linux — as an AppImage, <code>.deb</code>, or <code>.rpm</code>.</div>
       </details>
       <details class="faq-item">
+        <summary>How do I get updates?<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">Litranite checks for new versions on its own and offers to install them — you’ll see a small banner when one is ready. Nothing else is sent or downloaded in the background.</div>
+      </details>
+      <details class="faq-item">
         <summary>Why does my computer warn me on first open?<span class="faq-q-icon">+</span></summary>
         <div class="faq-a">Litranite is a free student project that isn’t code-signed yet, so macOS and Windows show a routine “unknown developer” notice. It’s not a virus — the step-by-step <a href="mac.html">Mac</a> and <a href="windows.html">Windows</a> guides show exactly what to click.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What if I move to a new computer?<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">Use the built-in export to save a <code>.litranite</code> backup file, copy it across, and import it on the other machine. The file stays with you — we never see it.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Something’s broken. Can I tell you?<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">Please do — email <a href="mailto:litranite@gmail.com">litranite@gmail.com</a>. We’re two students and we read everything that comes in.</div>
       </details>
       <details class="faq-item">
         <summary>Who made it?<span class="faq-q-icon">+</span></summary>
@@ -554,13 +645,13 @@
 </main>
 
 <div class="seal-strip">
-  <div class="wax-seal" title="Made by two students">
+  <button class="wax-seal" id="wax-seal" type="button" title="Press for a different look" aria-label="Surprise me with another theme">
     <span class="ws-inner">
       <svg class="ws-page" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2.5h8l4 4v15H6z"/><path d="M14 2.5v4h4"/><path d="M9 12h6M9 15.5h4"/></svg>
       <span class="ws-txt">est · 2026</span>
     </span>
-  </div>
-  <p class="seal-cap">sealed with care by two students</p>
+  </button>
+  <p class="seal-cap">sealed with care by two students <span class="seal-hint">— press the seal, it does something</span></p>
 </div>
 
 <footer class="footer">
@@ -586,7 +677,7 @@
   </nav>
 </footer>
 
-<script src="site.js?v=8"></script>
+<script src="site.js?v=19"></script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "715a8fd282424061a00a3bc4417c188f"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

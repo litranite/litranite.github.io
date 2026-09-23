@@ -187,21 +187,61 @@ function fallbackCopy(text, cb) {
 }
 
 /* ------------------------------------------------------------------
-   Day / night reading toggle
+   Themes — the app's nine palettes, offered quietly: the sun/moon button
+   in the nav, one dot in the demo's window bar, a line in the FAQ, and
+   the wax seal at the foot of the page.
    ------------------------------------------------------------------ */
 const root = document.documentElement;
-function setTheme(t) {
-  root.setAttribute('data-theme', t);
-  try { localStorage.setItem('litranite-theme', t); } catch (e) {}
-  const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.setAttribute('content', t === 'dark' ? '#191410' : '#f4ece0');
-}
-const themeToggle = document.querySelector('.theme-toggle');
-if (themeToggle) {
-  themeToggle.addEventListener('click', () => {
-    setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+const DARK_THEMES = ['dark', 'serif-dark', 'amoled', 'nord', 'catppuccin', 'everforest'];
+const THEME_NAMES = { light: 'Light', dark: 'Dark', 'serif-light': 'Serif Light', 'serif-dark': 'Serif Dark',
+  amoled: 'AMOLED', nord: 'Nord', blush: 'Blush', catppuccin: 'Catppuccin', everforest: 'Everforest' };
+let setTheme = () => {};
+(function () {
+  const ALL = Object.keys(THEME_NAMES);
+  let toastEl = null, toastTimer = null;
+
+  function say(msg) {
+    if (!toastEl) { toastEl = document.createElement('div'); toastEl.className = 'theme-toast'; toastEl.setAttribute('role', 'status'); document.body.appendChild(toastEl); }
+    toastEl.innerHTML = msg;
+    requestAnimationFrame(() => toastEl.classList.add('show'));
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2600);
+  }
+
+  setTheme = function (t, note) {
+    root.setAttribute('data-theme', t);
+    root.setAttribute('data-scheme', DARK_THEMES.includes(t) ? 'dark' : 'light');
+    try { localStorage.setItem('litranite-theme', t); } catch (e) {}
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', getComputedStyle(root).getPropertyValue('--paper').trim());
+    if (note) say(note.replace('%s', '<b>' + THEME_NAMES[t] + '</b>'));
+  };
+
+  // nav: day <-> night, staying in the spirit of the palette you're on
+  const PAIRS = { light: 'dark', dark: 'light', 'serif-light': 'serif-dark', 'serif-dark': 'serif-light',
+    amoled: 'light', nord: 'light', catppuccin: 'light', everforest: 'light', blush: 'dark' };
+  document.querySelectorAll('.theme-toggle').forEach((t) =>
+    t.addEventListener('click', () => setTheme(PAIRS[root.getAttribute('data-theme')] || 'light')));
+
+  // the demo's window bar: step through the nine, the way the app does
+  const one = document.getElementById('peb-one');
+  if (one) one.addEventListener('click', () => {
+    const next = ALL[(ALL.indexOf(root.getAttribute('data-theme')) + 1) % ALL.length];
+    setTheme(next, '%s — one of nine themes, same as the app');
   });
-}
+
+  // FAQ: named themes you can try mid-sentence
+  document.querySelectorAll('.faq-peb').forEach((b) => b.addEventListener('click', () => setTheme(b.dataset.t, 'This is %s. The app has all nine.')));
+
+  // the wax seal: a surprise one
+  const seal = document.getElementById('wax-seal');
+  if (seal) seal.addEventListener('click', () => {
+    const others = ALL.filter((t) => t !== root.getAttribute('data-theme'));
+    setTheme(others[Math.floor(Math.random() * others.length)], '%s — the app ships with nine of these');
+  });
+
+  setTheme(root.getAttribute('data-theme') || 'light');
+})();
 
 /* ------------------------------------------------------------------
    Smart, OS-aware download button
