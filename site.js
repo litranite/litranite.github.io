@@ -982,3 +982,115 @@ document.querySelectorAll('.logo').forEach((logo) => {
   if ('ResizeObserver' in window) new ResizeObserver(place).observe(pass);
   else window.addEventListener('resize', place);
 })();
+
+/* ------------------------------------------------------------------
+   Mac guide — work out which chip this Mac has, and play the
+   step-by-step walkthrough
+   ------------------------------------------------------------------ */
+(function () {
+  const btn = document.getElementById('mac-check');
+  const out = document.getElementById('mac-result');
+
+  function chip() {
+    const ua = navigator.userAgent;
+    if (!/Mac/i.test(ua) || /iPhone|iPad|iPod/i.test(ua)) return 'notmac';
+    // Safari and Chrome both report "Intel Mac OS X" whatever the chip, so ask
+    // the GPU instead: Apple Silicon renders through an "Apple M…" GPU.
+    try {
+      const c = document.createElement('canvas');
+      const gl = c.getContext('webgl') || c.getContext('experimental-webgl');
+      if (gl) {
+        const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+        const r = String(dbg ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER));
+        if (/apple m\d|apple gpu|apple silicon/i.test(r)) return 'arm';
+        if (/intel|iris|radeon|amd|nvidia|geforce/i.test(r)) return 'intel';
+      }
+    } catch (e) { /* fall through */ }
+    return 'unknown';
+  }
+
+  function recommend(kind) {
+    const arm = document.getElementById('dl-mac-arm');
+    const intel = document.getElementById('dl-mac-intel');
+    if (!arm || !intel) return;
+    if (kind === 'intel') {   // make the Intel build the obvious one
+      const armHref = arm.href, intelHref = intel.href;
+      arm.href = intelHref; arm.textContent = 'Download for Intel Macs (x64)';
+      intel.href = armHref; intel.textContent = 'Download the Apple Silicon build (M1\u2013M4)';
+      const label = document.getElementById('dl-alt-label');
+      if (label) label.textContent = 'Newer Mac with an M-chip? ';
+    }
+  }
+
+  if (btn && out) {
+    btn.addEventListener('click', () => {
+      const kind = chip();
+      out.className = 'which-result';
+      if (kind === 'arm') {
+        out.innerHTML = 'This looks like an <b>Apple Silicon</b> Mac (M1, M2, M3 or M4). Use the big button below — it already points at the right file.';
+      } else if (kind === 'intel') {
+        out.innerHTML = 'This looks like an <b>Intel</b> Mac. We’ve switched the button below to the Intel build for you.';
+        recommend('intel');
+      } else if (kind === 'notmac') {
+        out.className = 'which-result unknown';
+        out.innerHTML = 'You don’t seem to be on a Mac right now. Open this page on the Mac you want Litranite on, or check <b>About This Mac</b> there.';
+      } else {
+        out.className = 'which-result unknown';
+        out.innerHTML = 'Your browser won’t tell us — <b>check it yourself</b> below, it only takes two clicks.';
+        const man = document.getElementById('which-manual');
+        if (man) man.open = true;
+      }
+    });
+  }
+
+  /* ---- the walkthrough ---- */
+  const screen = document.getElementById('walk-screen');
+  if (!screen) return;
+  const scenes = Array.from(screen.querySelectorAll('.scene'));
+  const cap = document.getElementById('walk-cap');
+  const dots = document.getElementById('walk-dots');
+  const play = document.getElementById('walk-play');
+  const replay = document.getElementById('walk-replay');
+  const CAPS = [
+    'Download the build that matches your Mac.',
+    'Find the .dmg in Downloads and double-click it.',
+    'Drag Litranite onto the Applications folder.',
+    'In Applications, right-click Litranite → Open. (Double-clicking won’t work the first time.)',
+    'macOS asks once. Click Open.',
+    'Still says “damaged”? Paste this in Terminal, once.',
+    'That’s it — Litranite opens normally from now on.',
+  ];
+  const HOLD = [3000, 3200, 3400, 4200, 3400, 4200, 3200];
+  const TYPE = 'xattr -cr /Applications/Litranite.app';
+  let i = 0, timer = null, typing = null, running = true;
+
+  scenes.forEach((_, k) => { const d = document.createElement('i'); d.addEventListener('click', () => { show(k); pause(true); }); dots.appendChild(d); });
+
+  function typeCmd() {
+    const el = screen.querySelector('.sc-type');
+    if (!el) return;
+    el.textContent = '';
+    let n = 0;
+    clearInterval(typing);
+    typing = setInterval(() => { el.textContent = TYPE.slice(0, ++n); if (n >= TYPE.length) clearInterval(typing); }, 55);
+  }
+  function show(n) {
+    i = (n + scenes.length) % scenes.length;
+    scenes.forEach((s, k) => s.classList.toggle('on', k === i));
+    Array.from(dots.children).forEach((d, k) => d.classList.toggle('on', k === i));
+    cap.textContent = CAPS[i];
+    if (i === 5) typeCmd();
+  }
+  function next() { show(i + 1); schedule(); }
+  function schedule() { clearTimeout(timer); if (running) timer = setTimeout(next, HOLD[i]); }
+  function pause(yes) { running = !yes; play.textContent = running ? 'Pause' : 'Play'; if (running) schedule(); else clearTimeout(timer); }
+
+  play.addEventListener('click', () => pause(running));
+  replay.addEventListener('click', () => { show(0); if (!running) pause(false); else schedule(); });
+  screen.addEventListener('mouseenter', () => clearTimeout(timer));
+  screen.addEventListener('mouseleave', () => schedule());
+  document.addEventListener('visibilitychange', () => (document.hidden ? clearTimeout(timer) : schedule()));
+
+  show(0);
+  if (reduceMotion) { pause(true); } else { schedule(); }
+})();

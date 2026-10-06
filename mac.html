@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20">
+<link rel="stylesheet" href="styles.css?v=21">
 <script>(function(){try{var t=localStorage.getItem('litranite-theme');var d=['dark','serif-dark','amoled','nord','catppuccin','everforest'];if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';var r=document.documentElement;r.setAttribute('data-theme',t);r.setAttribute('data-scheme',d.indexOf(t)>=0?'dark':'light');}catch(e){}})();</script>
 </head>
 <body>
@@ -57,10 +57,138 @@
     <a href="linux.html">Linux</a>
   </nav>
 
-  <div class="ip-download">
-    <a class="btn btn-solid btn-lg" id="dl-mac-arm" href="https://github.com/AyanaayaW/litranite-releases/releases/download/v1.1.0/Litranite_1.1.0_aarch64.dmg">Download for macOS (.dmg)</a>
-    <span class="ip-dl-alt">Apple Silicon by default · on an older Mac? <a id="dl-mac-intel" href="https://github.com/AyanaayaW/litranite-releases/releases/download/v1.1.0/Litranite_1.1.0_x64.dmg">Intel build (x64)</a></span>
+  <!-- WHICH MAC — the bit people get wrong -->
+  <section class="which" id="which-mac">
+    <div class="which-head">
+      <span class="which-kicker">Step 0 · 10 seconds</span>
+      <h2>Which Mac do you have?</h2>
+      <p>Macs made from late 2020 onward run on <b>Apple Silicon</b> (M1, M2, M3, M4). Older ones have an <b>Intel</b> chip. They need different downloads — the wrong one simply won't open.</p>
+    </div>
+
+    <div class="which-check">
+      <button class="btn btn-solid" type="button" id="mac-check">Check this Mac for me</button>
+      <p class="which-result" id="mac-result" role="status"></p>
+    </div>
+
+    <details class="which-manual" id="which-manual">
+      <summary>Or check it yourself — it's two clicks<span class="faq-q-icon">+</span></summary>
+      <div class="which-manual-body">
+        <p>Click the <b> apple menu</b> in the top-left corner of your screen, then <b>About This Mac</b>. A small window opens:</p>
+        <div class="which-cards">
+          <div class="which-card">
+            <span class="wc-tag wc-arm">Apple Silicon</span>
+            <div class="wc-win">
+              <div class="wc-win-bar"><i></i><i></i><i></i></div>
+              <div class="wc-win-body">
+                <div class="wc-row"><span>Chip</span><b>Apple M2</b></div>
+                <div class="wc-row"><span>Memory</span><b>16 GB</b></div>
+                <div class="wc-row"><span>macOS</span><b>Sequoia 15.6</b></div>
+              </div>
+            </div>
+            <p class="wc-say">It says <b>Chip</b> — download the <b>Apple Silicon</b> build.</p>
+          </div>
+          <div class="which-card">
+            <span class="wc-tag wc-intel">Intel</span>
+            <div class="wc-win">
+              <div class="wc-win-bar"><i></i><i></i><i></i></div>
+              <div class="wc-win-body">
+                <div class="wc-row"><span>Processor</span><b>2.3 GHz Intel Core i5</b></div>
+                <div class="wc-row"><span>Memory</span><b>8 GB</b></div>
+                <div class="wc-row"><span>macOS</span><b>Monterey 12.7</b></div>
+              </div>
+            </div>
+            <p class="wc-say">It says <b>Processor</b> — download the <b>Intel</b> build.</p>
+          </div>
+        </div>
+        <p class="which-note">Your Mac needs <b>macOS 10.15 Catalina or newer</b>. The same window shows which macOS you're on.</p>
+      </div>
+    </details>
+  </section>
+
+  <div class="ip-download" id="downloads">
+    <a class="btn btn-solid btn-lg" id="dl-mac-arm" href="https://github.com/AyanaayaW/litranite-releases/releases/latest">Download for Apple Silicon (M1–M4)</a>
+    <span class="ip-dl-alt"><span id="dl-alt-label">Older Mac with an Intel chip? </span><a id="dl-mac-intel" href="https://github.com/AyanaayaW/litranite-releases/releases/latest">Download the Intel build (x64)</a></span>
   </div>
+
+  <!-- WALKTHROUGH — a silent, looping screencast of the whole install -->
+  <section class="walk" id="walkthrough">
+    <div class="walk-head">
+      <h2>Watch the whole thing first</h2>
+      <p>Every step, start to finish, in about forty seconds. No sound, nothing to download.</p>
+    </div>
+    <div class="walk-stage">
+      <div class="walk-screen" id="walk-screen">
+
+        <div class="scene" data-s="0">
+          <div class="sc-dl">
+            <span class="sc-file">Litranite_1.4.0_aarch64.dmg</span>
+            <span class="sc-bar"><i></i></span>
+          </div>
+        </div>
+
+        <div class="scene" data-s="1">
+          <div class="sc-finder">
+            <div class="sc-side"><i></i><i></i><i class="on"></i><i></i></div>
+            <div class="sc-files">
+              <div class="sc-row on"><span class="sc-ico">💿</span>Litranite_1.4.0_aarch64.dmg</div>
+              <div class="sc-row"><span class="sc-ico">📄</span>essay draft.pdf</div>
+              <div class="sc-row"><span class="sc-ico">🖼️</span>screenshot.png</div>
+              <span class="sc-click"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="scene" data-s="2">
+          <div class="sc-dmg">
+            <div class="sc-dmg-icon sc-drag"><img src="assets/logo.png" alt=""><span>Litranite</span></div>
+            <div class="sc-arrow">→</div>
+            <div class="sc-dmg-icon"><span class="sc-folder">📁</span><span>Applications</span></div>
+          </div>
+        </div>
+
+        <div class="scene" data-s="3">
+          <div class="sc-ctx">
+            <div class="sc-app"><img src="assets/logo.png" alt=""><span>Litranite</span></div>
+            <ul class="sc-menu">
+              <li class="on">Open</li><li>Move to Bin</li><li>Get Info</li>
+            </ul>
+            <span class="sc-click sc-click-2"></span>
+          </div>
+        </div>
+
+        <div class="scene" data-s="4">
+          <div class="sc-dialog">
+            <span class="sc-dialog-ico">⚠️</span>
+            <b>“Litranite” can't be opened because Apple cannot check it for malicious software.</b>
+            <p>This software needs to be updated. Contact the developer for more information.</p>
+            <div class="sc-dialog-btns"><span>Move to Bin</span><span class="on">Open</span></div>
+          </div>
+        </div>
+
+        <div class="scene" data-s="5">
+          <div class="sc-term">
+            <div class="sc-term-bar"><i></i><i></i><i></i><span>Terminal</span></div>
+            <code>$ <span class="sc-type"></span></code>
+          </div>
+        </div>
+
+        <div class="scene" data-s="6">
+          <div class="sc-done">
+            <img src="assets/logo.png" alt="">
+            <b>Litranite is open.</b>
+            <span>Drop in a PDF and start highlighting.</span>
+          </div>
+        </div>
+
+      </div>
+      <p class="walk-cap" id="walk-cap">Download the build that matches your Mac.</p>
+      <div class="walk-controls">
+        <button class="walk-btn" type="button" id="walk-play" aria-label="Play or pause">Pause</button>
+        <div class="walk-dots" id="walk-dots"></div>
+        <button class="walk-btn" type="button" id="walk-replay">Replay</button>
+      </div>
+    </div>
+  </section>
 
   <div class="ip-steps">
 
@@ -69,7 +197,7 @@
       <div class="ip-num">1</div>
       <div>
         <h3>Open the disk image</h3>
-        <p>Double-click the <span class="kbd">.dmg</span> you just downloaded. A little window opens showing the Litranite icon beside your Applications folder.</p>
+        <p>Double-click the <span class="kbd">.dmg</span> you just downloaded — it's in your <b>Downloads</b> folder, or at the end of Safari's download list (the arrow in the toolbar). A little window opens showing the Litranite icon beside your Applications folder.</p>
       </div>
     </section>
 
@@ -78,17 +206,18 @@
       <div class="ip-num">2</div>
       <div>
         <h3>Drag Litranite into Applications</h3>
-        <p>Drag the Litranite icon onto the Applications folder in that same window. That copies the app onto your Mac — you can eject the disk image afterwards.</p>
+        <p>Drag the Litranite icon onto the Applications folder in that same window. That copies the app onto your Mac. Afterwards you can eject the disk image (click the ⏏ beside it in Finder) and delete the <span class="kbd">.dmg</span>.</p>
+        <p class="ip-warn"><b>Don't run Litranite from the disk image.</b> If you double-click it inside that window without dragging it across first, the command in step 3 won't find it.</p>
         <div class="mock" aria-hidden="true">
-          <div style="display:flex;align-items:center;justify-content:center;gap:40px;padding:26px 20px;background:#f3f1ee">
+          <div style="display:flex;align-items:center;justify-content:center;gap:40px;padding:26px 20px;background:color-mix(in srgb, var(--ink) 6%, var(--card))">
             <div style="text-align:center">
-              <div style="width:60px;height:60px;margin:0 auto;border-radius:14px;background:#fff;display:grid;place-items:center;box-shadow:0 4px 12px rgba(0,0,0,.12)"><img src="assets/logo.png" alt="" style="width:44px;height:44px"></div>
-              <div style="font-size:12px;color:#333;margin-top:7px">Litranite</div>
+              <div style="width:60px;height:60px;margin:0 auto;border-radius:14px;background:var(--card);display:grid;place-items:center;box-shadow:0 4px 12px rgba(0,0,0,.12)"><img src="assets/logo.png" alt="" style="width:44px;height:44px"></div>
+              <div style="font-size:12px;color:var(--ink-70);margin-top:7px">Litranite</div>
             </div>
-            <div style="font-family:'Caveat',cursive;font-size:26px;color:#c15f38">drag →</div>
+            <div style="font-family:'Caveat',cursive;font-size:26px;color:var(--pop)">drag →</div>
             <div style="text-align:center">
               <div style="width:60px;height:60px;margin:0 auto;border-radius:12px;background:linear-gradient(180deg,#6fb0ff,#2f7ff0);display:grid;place-items:center;color:#fff;font-size:26px">📁</div>
-              <div style="font-size:12px;color:#333;margin-top:7px">Applications</div>
+              <div style="font-size:12px;color:var(--ink-70);margin-top:7px">Applications</div>
             </div>
           </div>
         </div>
@@ -99,25 +228,73 @@
     <section class="ip-step">
       <div class="ip-num">3</div>
       <div>
-        <h3>Clear the first-run flag <span style="font-weight:400;font-style:italic;font-family:var(--font-display);color:var(--terracotta)">— the important one</span></h3>
-        <p>On first launch macOS may say Litranite <b>“is damaged”</b> or <b>“can’t be opened.”</b> It isn’t damaged — macOS quarantines apps that aren’t yet notarized (Litranite is a free student project). One command clears it, once. Three small moves:</p>
+        <h3>Open it the first time <span style="font-weight:400;font-style:italic;font-family:var(--font-display);color:var(--terracotta)">— the part everyone gets stuck on</span></h3>
+        <p>Litranite isn't notarized by Apple yet (that costs $99 a year, and we're two students), so macOS stops it the first time. Nothing is wrong with the app. Try these in order — most people only need the first.</p>
 
-        <p style="margin-top:16px"><b style="font-family:var(--font-display);font-style:italic;color:var(--terracotta);font-size:18px">a.</b> &nbsp;Open <b>Terminal</b> — press <span class="kbd">⌘ + Space</span>, type <b>Terminal</b>, hit Return.</p>
+        <p style="margin-top:18px"><b class="ip-letter">a.</b> &nbsp;In <b>Finder › Applications</b>, <b>right-click</b> (or Control-click) Litranite and choose <b>Open</b>. In the box that appears, click <b>Open</b> again. Double-clicking will <em>not</em> work — it has to be the right-click menu.</p>
+
+        <p style="margin-top:18px"><b class="ip-letter">b.</b> &nbsp;If there was no <b>Open</b> button, go to <b> menu › System Settings › Privacy &amp; Security</b>, scroll down, and click <b>Open Anyway</b> next to the message about Litranite. (On macOS 12 and older: <b>System Preferences › Security &amp; Privacy › General</b>.)</p>
+
+        <p style="margin-top:18px"><b class="ip-letter">c.</b> &nbsp;If macOS insists Litranite <b>“is damaged and can't be opened”</b>, one command clears the quarantine flag. Press <span class="kbd">⌘ + Space</span>, type <b>Terminal</b>, hit Return, then paste this and press Return:</p>
         <div class="ip-shot"><img src="assets/spotlight-terminal.png" alt="macOS Spotlight search showing the Terminal app"></div>
-
-        <p style="margin-top:20px"><b style="font-family:var(--font-display);font-style:italic;color:var(--terracotta);font-size:18px">b.</b> &nbsp;Paste this command and press Return:</p>
         <div class="cmd-box">
           <code><span class="prompt">➜</span> xattr -cr /Applications/Litranite.app</code>
           <button class="cmd-copy" type="button" data-copy="xattr -cr /Applications/Litranite.app">Copy</button>
         </div>
-        <p class="cmd-note">Nothing visible happens — no output, no confirmation. That’s exactly right.</p>
-
-        <p style="margin-top:20px"><b style="font-family:var(--font-display);font-style:italic;color:var(--terracotta);font-size:18px">c.</b> &nbsp;Open <b>Finder › Applications</b> and double-click <b>Litranite</b>. It launches normally from now on.</p>
+        <p class="cmd-note">Nothing visible happens — no output, no confirmation. That's exactly right. Now open Litranite normally.</p>
         <div class="ip-shot"><img src="assets/applications-finder.png" alt="Finder Applications folder with Litranite selected"></div>
       </div>
     </section>
 
   </div>
+
+  <!-- TROUBLESHOOTING -->
+  <section class="tsho" id="trouble">
+    <h2>If something still goes wrong</h2>
+    <p class="tsho-sub">The exact words macOS shows you, and what each one means.</p>
+    <div class="faq-list reveal">
+      <details class="faq-item">
+        <summary>“Litranite is damaged and can't be opened. You should move it to the Bin.”<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">The most common one, and it's misleading — the app is fine. macOS marks anything downloaded from the internet and refuses unsigned apps outright. Run step 3c above: <span class="kbd">xattr -cr /Applications/Litranite.app</span>. If it still says this, you very likely have the <b>wrong build</b> for your chip — see the next answer.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Nothing happens at all when I open it<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">The icon bounces once, or nothing happens — that's usually the Apple Silicon build on an Intel Mac. Go back to <a href="#which-mac">Which Mac do you have?</a>, check the chip, and download the other build. Dragging the new one into Applications will ask to replace the old one; say yes.</div>
+      </details>
+      <details class="faq-item">
+        <summary>“Apple cannot check it for malicious software”<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">This is the normal notice for an app that isn't notarized. Right-click the app and choose <b>Open</b> (step 3a), or use <b>Open Anyway</b> in System Settings (step 3b). Both give you a one-time exception; after that it opens like any other app.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Terminal says “No such file or directory”<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">The app isn't in your Applications folder yet — the command looks for it there. Drag Litranite from the disk-image window into Applications first (step 2), then run the command again. Also check you pasted the whole line, including <span class="kbd">/Applications/</span>.</div>
+      </details>
+      <details class="faq-item">
+        <summary>The .dmg won't open, or says the image isn't recognised<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">Usually a download that stopped halfway. Delete the file and download it again, and let it finish before opening — a file ending in <span class="kbd">.dmg.download</span> is still arriving. If your browser unzipped it into something odd, try downloading with Safari.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Can I use the Intel build on an M1/M2/M3 Mac?<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">Yes — Apple Silicon Macs can run Intel apps through Rosetta, and macOS offers to install it the first time. It works, but it's slower and heavier on battery than the Apple Silicon build, so only do this if the other one gives you trouble. The reverse doesn't work: an Intel Mac can't run the Apple Silicon build at all.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Which macOS do I need?<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">macOS 10.15 Catalina or newer, on both chips. You'll find your version in the same <b>About This Mac</b> window.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Where did the app go after I dragged it?<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">Into <b>Applications</b>. Open Finder and click Applications in the sidebar, or press <span class="kbd">⌘ + Space</span> and type <b>Litranite</b>. To keep it in the Dock, open it and then right-click its Dock icon → <b>Options › Keep in Dock</b>.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How do I uninstall it?<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">Drag Litranite from Applications to the Bin. Your notes and annotations stay on your Mac in <span class="kbd">~/Library/Application Support/com.litranite.app</span>, so you can delete that folder too if you want everything gone. Export a backup first if you might come back.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Still stuck<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">Email <a href="mailto:litranite@gmail.com">litranite@gmail.com</a> with your chip (Apple Silicon or Intel), your macOS version, and the exact words of the message you're seeing. A screenshot helps most of all — press <span class="kbd">⌘ + Shift + 4</span> and drag over the box.</div>
+      </details>
+    </div>
+  </section>
 
   <div class="ip-final">
     <h2>You’re ready to read.</h2>
@@ -142,7 +319,7 @@
   </nav>
 </footer>
 
-<script src="site.js?v=19"></script>
+<script src="site.js?v=21"></script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "715a8fd282424061a00a3bc4417c188f"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
