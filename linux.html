@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=21">
+<link rel="stylesheet" href="styles.css?v=22">
 <script>(function(){try{var t=localStorage.getItem('litranite-theme');var d=['dark','serif-dark','amoled','nord','catppuccin','everforest'];if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';var r=document.documentElement;r.setAttribute('data-theme',t);r.setAttribute('data-scheme',d.indexOf(t)>=0?'dark':'light');}catch(e){}})();</script>
 </head>
 <body>
@@ -57,88 +57,145 @@
     <a href="linux.html" aria-current="page">Linux</a>
   </nav>
 
-  <div class="ip-download">
-    <a class="btn btn-solid btn-lg" id="dl-linux" href="https://github.com/AyanaayaW/litranite-releases/releases/download/v1.1.0/Litranite_1.1.0_amd64.AppImage">Download AppImage</a>
-    <span class="ip-dl-alt">prefer packages? <a id="dl-deb" href="https://github.com/AyanaayaW/litranite-releases/releases/download/v1.1.0/Litranite_1.1.0_amd64.deb">.deb</a> &nbsp;·&nbsp; <a id="dl-rpm" href="https://github.com/AyanaayaW/litranite-releases/releases/download/v1.1.0/Litranite-1.1.0-1.x86_64.rpm">.rpm</a></span>
+  <div class="ip-download" id="downloads">
+    <a class="btn btn-solid btn-lg" id="dl-linux" href="https://github.com/AyanaayaW/litranite-releases/releases/latest">Download the AppImage</a>
+    <span class="ip-dl-alt">Prefer a package? <a id="dl-deb" href="https://github.com/AyanaayaW/litranite-releases/releases/latest">.deb for Debian/Ubuntu</a> &nbsp;·&nbsp; <a id="dl-rpm" href="https://github.com/AyanaayaW/litranite-releases/releases/latest">.rpm for Fedora/openSUSE</a></span>
   </div>
+
+  <section class="which" id="which-route">
+    <div class="which-head">
+      <span class="which-kicker">Pick a route · both work</span>
+      <h2>AppImage or package?</h2>
+    </div>
+    <div class="which-cards">
+      <div class="which-card">
+        <span class="wc-tag wc-arm">AppImage</span>
+        <p class="wc-say"><b>Runs anywhere, installs nothing.</b> One file you make executable and double-click. Best if you're on an older distro, aren't sure what you're running, or just want to try it. You keep the file wherever you like.</p>
+      </div>
+      <div class="which-card">
+        <span class="wc-tag wc-intel">.deb / .rpm</span>
+        <p class="wc-say"><b>Proper install, menu entry, <span class="kbd">litranite</span> command.</b> Needs WebKitGTK 4.1 from your distro — Ubuntu 22.04+, Debian 12+, Fedora 38+ have it. Install it with <b>apt / dnf / zypper</b>, never <span class="kbd">dpkg -i</span>: see step 2.</p>
+      </div>
+    </div>
+  </section>
 
   <div class="ip-steps">
 
-    <!-- 1 -->
     <section class="ip-step">
       <div class="ip-num">1</div>
       <div>
-        <h3>Download the AppImage</h3>
-        <p>Grab the <span class="kbd">.AppImage</span> above. It’s a single self-contained file — nothing to install system-wide, and it runs on most distributions.</p>
-      </div>
-    </section>
-
-    <!-- 2 -->
-    <section class="ip-step">
-      <div class="ip-num">2</div>
-      <div>
-        <h3>Make it executable</h3>
-        <p>In a terminal, mark the file as runnable (or right-click → Properties → Permissions → “Allow executing file as program”):</p>
+        <h3>The AppImage route</h3>
+        <p>Download the <span class="kbd">.AppImage</span>, then mark it as runnable — either right-click → <b>Properties › Permissions › Allow executing file as program</b>, or in a terminal in the folder you downloaded it to:</p>
         <div class="cmd-box">
           <code><span class="prompt">$</span> chmod +x Litranite_*.AppImage</code>
           <button class="cmd-copy" type="button" data-copy="chmod +x Litranite_*.AppImage">Copy</button>
         </div>
-      </div>
-    </section>
-
-    <!-- 3 -->
-    <section class="ip-step">
-      <div class="ip-num">3</div>
-      <div>
-        <h3>Run it</h3>
-        <p>Double-click the file, or launch it from the terminal:</p>
+        <p style="margin-top:14px">Then run it by double-clicking, or:</p>
         <div class="cmd-box">
           <code><span class="prompt">$</span> ./Litranite_*.AppImage</code>
           <button class="cmd-copy" type="button" data-copy="./Litranite_*.AppImage">Copy</button>
         </div>
-        <p class="cmd-note">If it says something about FUSE, Ubuntu 22.04 and later need <span class="kbd">sudo apt install libfuse2</span> — or skip FUSE altogether by running <span class="kbd">./Litranite_*.AppImage --appimage-extract-and-run</span>.</p>
+        <p class="cmd-note">If it complains about <b>FUSE</b> (“dlopen(): error loading libfuse.so.2”), either install it — <span class="kbd">sudo apt install libfuse2</span> on Ubuntu 22.04+ — or skip FUSE altogether:</p>
+        <div class="cmd-box">
+          <code><span class="prompt">$</span> ./Litranite_*.AppImage --appimage-extract-and-run</code>
+          <button class="cmd-copy" type="button" data-copy="./Litranite_*.AppImage --appimage-extract-and-run">Copy</button>
+        </div>
       </div>
     </section>
 
-    <!-- alt: package managers -->
     <section class="ip-step">
-      <div class="ip-num">§</div>
+      <div class="ip-num">2</div>
       <div>
-        <h3>Prefer a package manager?</h3>
-        <p>Install the downloaded package with <strong>apt</strong>, <strong>dnf</strong> or <strong>zypper</strong> — note the <span class="kbd">./</span> before the filename. Debian and Ubuntu:</p>
-        <div class="cmd-box">
+        <h3>The package route <span style="font-weight:400;font-style:italic;font-family:var(--font-display);color:var(--terracotta)">— use apt, not dpkg</span></h3>
+        <p>Run the command for your distro <b>in the folder you downloaded the file to</b>. The <span class="kbd">./</span> matters: without it your package manager goes looking for a package by that name on the internet instead of the file on your disk.</p>
+        <p class="cmd-label">Debian · Ubuntu · Mint · Pop!_OS</p><div class="cmd-box">
           <code><span class="prompt">$</span> sudo apt install ./Litranite_*.deb</code>
           <button class="cmd-copy" type="button" data-copy="sudo apt install ./Litranite_*.deb">Copy</button>
         </div>
-        <p style="margin-top:14px">Fedora:</p>
-        <div class="cmd-box">
+        <p class="cmd-label">Fedora · RHEL</p><div class="cmd-box">
           <code><span class="prompt">$</span> sudo dnf install ./Litranite-*.rpm</code>
           <button class="cmd-copy" type="button" data-copy="sudo dnf install ./Litranite-*.rpm">Copy</button>
         </div>
-        <p style="margin-top:14px">openSUSE:</p>
-        <div class="cmd-box">
+        <p class="cmd-label">openSUSE</p><div class="cmd-box">
           <code><span class="prompt">$</span> sudo zypper install ./Litranite-*.rpm</code>
           <button class="cmd-copy" type="button" data-copy="sudo zypper install ./Litranite-*.rpm">Copy</button>
         </div>
-        <p class="cmd-note">Use these rather than <span class="kbd">dpkg -i</span> or <span class="kbd">rpm -i</span>. Those two install the package but not the libraries it needs, which leaves Litranite installed and unable to open — the commonest way this goes wrong.</p>
+        <p class="ip-warn"><b>Don't use <span class="kbd">sudo dpkg -i</span> (or <span class="kbd">rpm -i</span>).</b> They install Litranite but not the libraries it needs — <span class="kbd">libwebkit2gtk-4.1-0</span> and <span class="kbd">libgtk-3-0</span>. The app lands in your menu and then refuses to open, with nothing to explain why. <b>apt</b>, <b>dnf</b> and <b>zypper</b> pull the dependencies in as well. If you already used dpkg, this repairs it: <span class="kbd">sudo apt --fix-broken install</span></p>
+        <p style="margin-top:14px">Afterwards Litranite is in your applications menu, and the command <span class="kbd">litranite</span> works in any terminal.</p>
       </div>
     </section>
 
-    <!-- troubleshooting -->
     <section class="ip-step">
-      <div class="ip-num">?</div>
+      <div class="ip-num">3</div>
       <div>
-        <h3>Installed, but it won’t open?</h3>
-        <p>Nearly always the graphics layer Litranite draws through, which misbehaves on NVIDIA’s driver, a few Mesa versions and inside virtual machines. The window simply never appears. Start it this way once to confirm:</p>
+        <h3>Installed, but it won't open?</h3>
+        <p>This is the common one on Linux, and it isn't your fault. WebKitGTK's DMABUF renderer breaks on a long list of setups — NVIDIA's proprietary driver, some Intel/Mesa versions, most virtual machines, and plenty of Wayland sessions. The window never appears, or opens blank. Start it once like this:</p>
         <div class="cmd-box">
           <code><span class="prompt">$</span> WEBKIT_DISABLE_DMABUF_RENDERER=1 litranite</code>
           <button class="cmd-copy" type="button" data-copy="WEBKIT_DISABLE_DMABUF_RENDERER=1 litranite">Copy</button>
         </div>
-        <p class="cmd-note">If that opens it, you’re on an older build — Litranite sets this for itself from 1.5 onwards, including when you launch it from your applications menu. For a machine with no working graphics acceleration at all, <span class="kbd">LITRANITE_SOFTWARE_RENDERING=1</span> falls back to software drawing.</p>
+        <p class="cmd-note">If that works, the renderer was the problem. <b>From the next release Litranite sets this itself</b>, including when you start it from the menu — so this is only needed on 1.4.0 and earlier.</p>
+        <p style="margin-top:14px">For the AppImage, put the same thing in front of the file:</p>
+        <div class="cmd-box">
+          <code><span class="prompt">$</span> WEBKIT_DISABLE_DMABUF_RENDERER=1 ./Litranite_*.AppImage</code>
+          <button class="cmd-copy" type="button" data-copy="WEBKIT_DISABLE_DMABUF_RENDERER=1 ./Litranite_*.AppImage">Copy</button>
+        </div>
+        <p style="margin-top:14px">Still nothing? Fall back to software rendering, which works almost everywhere but scrolls less smoothly:</p>
+        <div class="cmd-box">
+          <code><span class="prompt">$</span> WEBKIT_DISABLE_COMPOSITING_MODE=1 WEBKIT_DISABLE_DMABUF_RENDERER=1 litranite</code>
+          <button class="cmd-copy" type="button" data-copy="WEBKIT_DISABLE_COMPOSITING_MODE=1 WEBKIT_DISABLE_DMABUF_RENDERER=1 litranite">Copy</button>
+        </div>
       </div>
     </section>
 
   </div>
+
+  <section class="tsho" id="trouble">
+    <h2>If something still goes wrong</h2>
+    <p class="tsho-sub">Run <span class="kbd">litranite</span> from a terminal first — whatever it prints is the real clue.</p>
+    <div class="faq-list reveal">
+      <details class="faq-item">
+        <summary>It installed, but nothing happens when I click it<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">Nine times out of ten this is the graphics renderer — try step 3. If running it in a terminal prints something about <b>libwebkit2gtk</b> being missing, you installed with <span class="kbd">dpkg -i</span> and the dependencies never came: run <span class="kbd">sudo apt --fix-broken install</span>, or reinstall with <span class="kbd">sudo apt install ./Litranite_*.deb</span>.</div>
+      </details>
+      <details class="faq-item">
+        <summary>The window opens but it's blank or white<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">Same cause as above — the page renders into a surface your driver can't hand over. <span class="kbd">WEBKIT_DISABLE_DMABUF_RENDERER=1 litranite</span>, and if that isn't enough add <span class="kbd">WEBKIT_DISABLE_COMPOSITING_MODE=1</span>. Common on NVIDIA's proprietary driver and inside VirtualBox or VMware.</div>
+      </details>
+      <details class="faq-item">
+        <summary>“litranite: command not found”<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">The package isn't installed — that command only exists after the .deb or .rpm route. If you're using the AppImage, run the file itself: <span class="kbd">./Litranite_*.AppImage</span> from the folder it's in.</div>
+      </details>
+      <details class="faq-item">
+        <summary>“Permission denied” when I run the AppImage<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">It isn't marked executable yet: <span class="kbd">chmod +x Litranite_*.AppImage</span>. If the file sits on a drive mounted with <span class="kbd">noexec</span> (some external or Windows partitions), move it into your home folder first.</div>
+      </details>
+      <details class="faq-item">
+        <summary>“dlopen(): error loading libfuse.so.2”<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">AppImages use FUSE 2, which newer distros don't install by default. Either <span class="kbd">sudo apt install libfuse2</span>, or skip it entirely with <span class="kbd">./Litranite_*.AppImage --appimage-extract-and-run</span>.</div>
+      </details>
+      <details class="faq-item">
+        <summary>The AppImage doesn't show up in my applications menu<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">That's expected — an AppImage is just a file, it doesn't register itself. Keep it somewhere sensible like <span class="kbd">~/Applications</span> and let your desktop add it (GNOME and KDE both offer to), or use the .deb/.rpm, which do add a menu entry.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Does it need WebKitGTK 4.1? My distro only has 4.0<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">Yes — the packages depend on <span class="kbd">libwebkit2gtk-4.1-0</span> and <span class="kbd">libgtk-3-0</span>. Ubuntu 22.04+, Debian 12+ and Fedora 38+ have it. On anything older, use the AppImage instead.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Where is my work kept, and how do I uninstall?<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">Your notes and annotations live in <span class="kbd">~/.local/share/com.litranite.app</span>. Remove the app with <span class="kbd">sudo apt remove litranite</span> (or <span class="kbd">sudo dnf remove litranite</span>); delete the AppImage file if that's the route you took. Your data folder stays until you delete it yourself — export a backup first if you might come back.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Wayland, NVIDIA, or a VM — anything special?<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">All three are exactly where the renderer flag in step 3 earns its keep. On Wayland you can also force the X11 path with <span class="kbd">GDK_BACKEND=x11 litranite</span> if windows behave oddly.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Still stuck<span class="faq-q-icon">+</span></summary>
+        <div class="faq-a">Email <a href="mailto:litranite@gmail.com">litranite@gmail.com</a> with your distro and version, whether you used the AppImage or a package, and everything the terminal printed when you ran <span class="kbd">litranite</span>. That output tells us almost everything.</div>
+      </details>
+    </div>
+  </section>
 
   <div class="ip-final">
     <h2>You’re ready to read.</h2>
@@ -163,7 +220,7 @@
   </nav>
 </footer>
 
-<script src="site.js?v=21"></script>
+<script src="site.js?v=22"></script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "715a8fd282424061a00a3bc4417c188f"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

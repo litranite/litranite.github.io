@@ -157,6 +157,10 @@ fetch(`https://api.github.com/repos/${REPO}/releases/latest`)
       if (el && asset) el.href = asset.browser_download_url;
     }
     document.querySelectorAll('.js-version').forEach((el) => { el.textContent = rel.tag_name; });
+    [['file-arm', 'dl-mac-arm'], ['file-intel', 'dl-mac-intel'], ['file-linux', 'dl-linux']].forEach(([fid, lid]) => {
+      const f = document.getElementById(fid), l = document.getElementById(lid);
+      if (f && l && /\.(dmg|AppImage)$/.test(l.href)) f.textContent = decodeURIComponent(l.href.split('/').pop());
+    });
     syncSmart();
   })
   .catch(() => {});
@@ -1010,16 +1014,21 @@ document.querySelectorAll('.logo').forEach((logo) => {
   }
 
   function recommend(kind) {
-    const arm = document.getElementById('dl-mac-arm');
-    const intel = document.getElementById('dl-mac-intel');
+    const arm = document.getElementById('choice-arm');
+    const intel = document.getElementById('choice-intel');
     if (!arm || !intel) return;
-    if (kind === 'intel') {   // make the Intel build the obvious one
-      const armHref = arm.href, intelHref = intel.href;
-      arm.href = intelHref; arm.textContent = 'Download for Intel Macs (x64)';
-      intel.href = armHref; intel.textContent = 'Download the Apple Silicon build (M1\u2013M4)';
-      const label = document.getElementById('dl-alt-label');
-      if (label) label.textContent = 'Newer Mac with an M-chip? ';
-    }
+    const armBtn = document.getElementById('dl-mac-arm');
+    const intelBtn = document.getElementById('dl-mac-intel');
+    const match = kind === 'intel' ? intel : arm, other = kind === 'intel' ? arm : intel;
+    match.classList.add('is-match'); other.classList.remove('is-match');
+    // the recommended one gets the solid button
+    [[match, 'btn-solid', 'btn-outline'], [other, 'btn-outline', 'btn-solid']].forEach(([card, add, rm]) => {
+      const b2 = card.querySelector('.btn'); b2.classList.add(add); b2.classList.remove(rm);
+    });
+    void armBtn; void intelBtn;
+    const why = document.getElementById('which-why');
+    if (why) why.hidden = false;
+    match.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
   }
 
   if (btn && out) {
@@ -1027,7 +1036,8 @@ document.querySelectorAll('.logo').forEach((logo) => {
       const kind = chip();
       out.className = 'which-result';
       if (kind === 'arm') {
-        out.innerHTML = 'This looks like an <b>Apple Silicon</b> Mac (M1, M2, M3 or M4). Use the big button below — it already points at the right file.';
+        out.innerHTML = 'This looks like an <b>Apple Silicon</b> Mac (M1, M2, M3 or M4) — take the Apple Silicon build below.';
+        recommend('arm');
       } else if (kind === 'intel') {
         out.innerHTML = 'This looks like an <b>Intel</b> Mac. We’ve switched the button below to the Intel build for you.';
         recommend('intel');
