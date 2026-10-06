@@ -138,8 +138,20 @@ else if (/Linux/i.test(ua) && !/Android/i.test(ua) && tabLinux) tabLinux.click()
    Point download buttons at the newest GitHub release
    ------------------------------------------------------------------ */
 const REPO = 'AyanaayaW/litranite-releases';
+
+// A release whose build failed can exist with no installers attached — that
+// happened once and emptied every download button on the site. So: take the
+// newest release that actually carries installers, not simply the newest.
+function hasInstallers(rel) {
+  return !!(rel && rel.assets || []).length &&
+    rel.assets.some((a) => /\.(dmg|exe|AppImage|deb|rpm)$/i.test(a.name));
+}
 fetch(`https://api.github.com/repos/${REPO}/releases/latest`)
   .then((r) => (r.ok ? r.json() : null))
+  .then((rel) => (hasInstallers(rel) ? rel
+    : fetch(`https://api.github.com/repos/${REPO}/releases?per_page=10`)
+        .then((r) => (r.ok ? r.json() : []))
+        .then((list) => (Array.isArray(list) ? list.filter((x) => !x.draft && hasInstallers(x))[0] : null))))
   .then((rel) => {
     if (!rel || !rel.assets) return;
     const find = (re) => rel.assets.find((a) => re.test(a.name));
