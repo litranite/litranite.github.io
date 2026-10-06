@@ -96,7 +96,7 @@
           <code><span class="prompt">$</span> ./Litranite_*.AppImage</code>
           <button class="cmd-copy" type="button" data-copy="./Litranite_*.AppImage">Copy</button>
         </div>
-        <p class="cmd-note">On some systems you may need FUSE: <span class="kbd">sudo apt install libfuse2</span>.</p>
+        <p class="cmd-note">If it says something about FUSE, Ubuntu 22.04 and later need <span class="kbd">sudo apt install libfuse2</span> — or skip FUSE altogether by running <span class="kbd">./Litranite_*.AppImage --appimage-extract-and-run</span>.</p>
       </div>
     </section>
 
@@ -105,15 +105,36 @@
       <div class="ip-num">§</div>
       <div>
         <h3>Prefer a package manager?</h3>
-        <p>Install the downloaded package directly instead:</p>
+        <p>Install the downloaded package with <strong>apt</strong>, <strong>dnf</strong> or <strong>zypper</strong> — note the <span class="kbd">./</span> before the filename. Debian and Ubuntu:</p>
         <div class="cmd-box">
-          <code><span class="prompt">$</span> sudo dpkg -i Litranite_*.deb</code>
-          <button class="cmd-copy" type="button" data-copy="sudo dpkg -i Litranite_*.deb">Copy</button>
+          <code><span class="prompt">$</span> sudo apt install ./Litranite_*.deb</code>
+          <button class="cmd-copy" type="button" data-copy="sudo apt install ./Litranite_*.deb">Copy</button>
         </div>
-        <div class="cmd-box" style="margin-top:10px">
-          <code><span class="prompt">$</span> sudo rpm -i Litranite-*.rpm</code>
-          <button class="cmd-copy" type="button" data-copy="sudo rpm -i Litranite-*.rpm">Copy</button>
+        <p style="margin-top:14px">Fedora:</p>
+        <div class="cmd-box">
+          <code><span class="prompt">$</span> sudo dnf install ./Litranite-*.rpm</code>
+          <button class="cmd-copy" type="button" data-copy="sudo dnf install ./Litranite-*.rpm">Copy</button>
         </div>
+        <p style="margin-top:14px">openSUSE:</p>
+        <div class="cmd-box">
+          <code><span class="prompt">$</span> sudo zypper install ./Litranite-*.rpm</code>
+          <button class="cmd-copy" type="button" data-copy="sudo zypper install ./Litranite-*.rpm">Copy</button>
+        </div>
+        <p class="cmd-note">Use these rather than <span class="kbd">dpkg -i</span> or <span class="kbd">rpm -i</span>. Those two install the package but not the libraries it needs, which leaves Litranite installed and unable to open — the commonest way this goes wrong.</p>
+      </div>
+    </section>
+
+    <!-- troubleshooting -->
+    <section class="ip-step">
+      <div class="ip-num">?</div>
+      <div>
+        <h3>Installed, but it won’t open?</h3>
+        <p>Nearly always the graphics layer Litranite draws through, which misbehaves on NVIDIA’s driver, a few Mesa versions and inside virtual machines. The window simply never appears. Start it this way once to confirm:</p>
+        <div class="cmd-box">
+          <code><span class="prompt">$</span> WEBKIT_DISABLE_DMABUF_RENDERER=1 litranite</code>
+          <button class="cmd-copy" type="button" data-copy="WEBKIT_DISABLE_DMABUF_RENDERER=1 litranite">Copy</button>
+        </div>
+        <p class="cmd-note">If that opens it, you’re on an older build — Litranite sets this for itself from 1.5 onwards, including when you launch it from your applications menu. For a machine with no working graphics acceleration at all, <span class="kbd">LITRANITE_SOFTWARE_RENDERING=1</span> falls back to software drawing.</p>
       </div>
     </section>
 
