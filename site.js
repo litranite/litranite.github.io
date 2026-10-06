@@ -1040,7 +1040,40 @@ document.querySelectorAll('.logo').forEach((logo) => {
     void armBtn; void intelBtn;
     const why = document.getElementById('which-why');
     if (why) why.hidden = false;
+    if (typeof setBuild === 'function') setBuild(kind === 'intel' ? 'intel' : 'arm');
     match.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
+
+  const BUILDS = {
+    arm: { id: 'dl-mac-arm', fallback: 'Litranite_aarch64.dmg' },
+    intel: { id: 'dl-mac-intel', fallback: 'Litranite_x64.dmg' },
+  };
+  function setBuild(kind) {
+    const link = document.getElementById(BUILDS[kind].id);
+    const name = link && /\.dmg$/.test(link.href) ? decodeURIComponent(link.href.split('/').pop()) : BUILDS[kind].fallback;
+    document.querySelectorAll('.js-dmg').forEach((el) => { el.textContent = name; });
+    document.querySelectorAll('.bb-opt').forEach((b2) => {
+      const on = b2.dataset.build === kind;
+      b2.classList.toggle('on', on); b2.setAttribute('aria-pressed', String(on));
+    });
+    try { sessionStorage.setItem('litranite-mac-build', kind); } catch (e) {}
+  }
+  document.querySelectorAll('.bb-opt').forEach((b2) => b2.addEventListener('click', () => setBuild(b2.dataset.build)));
+  // downloading a build takes you to the steps for that build
+  Object.entries(BUILDS).forEach(([kind, cfg]) => {
+    const link = document.getElementById(cfg.id);
+    if (link) link.addEventListener('click', () => {
+      setBuild(kind);
+      setTimeout(() => { const bb = document.getElementById('build-bar'); if (bb) bb.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 400);
+    });
+  });
+  if (document.getElementById('build-bar')) {
+    let start = 'arm';
+    try { start = sessionStorage.getItem('litranite-mac-build') || (location.hash === '#intel' ? 'intel' : 'arm'); } catch (e) {}
+    if (location.hash === '#intel') start = 'intel';
+    setBuild(start);
+    // keep the names current once the GitHub API fills the links in
+    setTimeout(() => setBuild(start), 2500);
   }
 
   if (btn && out) {

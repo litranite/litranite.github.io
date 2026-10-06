@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=23">
+<link rel="stylesheet" href="styles.css?v=24">
 <script>(function(){try{var t=localStorage.getItem('litranite-theme');var d=['dark','serif-dark','amoled','nord','catppuccin','everforest'];if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';var r=document.documentElement;r.setAttribute('data-theme',t);r.setAttribute('data-scheme',d.indexOf(t)>=0?'dark':'light');}catch(e){}})();</script>
 </head>
 <body>
@@ -124,6 +124,15 @@
   </div>
   <p class="choice-note">Not sure? Use the check above. Picked wrong? Nothing breaks — the app just won't open, so come back and take the other one.</p>
 
+  <div class="build-bar" id="build-bar">
+    <span class="bb-label">Instructions for</span>
+    <div class="bb-switch" role="group" aria-label="Which build these steps are for">
+      <button type="button" class="bb-opt on" data-build="arm">Apple Silicon</button>
+      <button type="button" class="bb-opt" data-build="intel">Intel</button>
+    </div>
+    <span class="bb-file js-dmg">Litranite_1.5.0_aarch64.dmg</span>
+  </div>
+
   <!-- WALKTHROUGH — a silent, looping screencast of the whole install -->
   <section class="walk" id="walkthrough">
     <div class="walk-head">
@@ -135,7 +144,7 @@
 
         <div class="scene" data-s="0">
           <div class="sc-dl">
-            <span class="sc-file">Litranite_1.4.0_aarch64.dmg</span>
+            <span class="sc-file js-dmg">Litranite_1.5.0_aarch64.dmg</span>
             <span class="sc-bar"><i></i></span>
           </div>
         </div>
@@ -144,7 +153,7 @@
           <div class="sc-finder">
             <div class="sc-side"><i></i><i></i><i class="on"></i><i></i></div>
             <div class="sc-files">
-              <div class="sc-row on"><span class="sc-ico">💿</span>Litranite_1.4.0_aarch64.dmg</div>
+              <div class="sc-row on"><span class="sc-ico">💿</span><span class="js-dmg">Litranite_1.5.0_aarch64.dmg</span></div>
               <div class="sc-row"><span class="sc-ico">📄</span>essay draft.pdf</div>
               <div class="sc-row"><span class="sc-ico">🖼️</span>screenshot.png</div>
               <span class="sc-click"></span>
@@ -211,7 +220,7 @@
       <div class="ip-num">1</div>
       <div>
         <h3>Open the disk image</h3>
-        <p>Double-click the <span class="kbd">.dmg</span> you just downloaded — it's in your <b>Downloads</b> folder, or at the end of Safari's download list (the arrow in the toolbar). A little window opens showing the Litranite icon beside your Applications folder.</p>
+        <p>Double-click <span class="kbd js-dmg">Litranite_1.5.0_aarch64.dmg</span> — it's in your <b>Downloads</b> folder, or at the end of Safari's download list (the arrow in the toolbar). A little window opens showing the Litranite icon beside your Applications folder.</p>
       </div>
     </section>
 
@@ -333,7 +342,7 @@
   </nav>
 </footer>
 
-<script src="site.js?v=23"></script>
+<script src="site.js?v=24"></script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "715a8fd282424061a00a3bc4417c188f"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
